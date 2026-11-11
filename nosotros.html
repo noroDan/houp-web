@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css?v=v4">
+  <link rel="stylesheet" href="css/styles.css?v=v5">
   
   <script type="application/ld+json">
   {
@@ -83,18 +83,40 @@
       <div class="hero-mini-image"><img src="img/fotos/quienes_somos_hero.jpg" alt="Equipo HOUP en Monterrey"></div>
       <div class="hero-mini-content">
         <p class="hero-editorial-eyebrow">Nosotros</p>
-        <h1>Dejamos huella, <em>no impresión.</em></h1>
+        <h1>Dejamos huella, <em class="word-rotator" data-words="no impresión.|no espuma.|no moda.|no discurso.">no impresión.</em></h1>
         <p class="hero-mini-sub">Doce años después, la idea es la misma: cada persona carga una mejor versión de sí misma, y nosotros ayudamos a encontrarla.</p>
       </div>
     </section>
 
     <div class="lienzo-principal">
 
-      <!-- HISTORIA -->
-      <section class="manifiesto">
-        <div class="container">
-          <p class="tag-seccion reveal">Historia</p>
-          <p class="text-progressive">HOUP nació en Monterrey en 2014 con una idea sencilla: cada persona carga una mejor versión de sí misma. Empezamos con retiros para jóvenes y hoy acompañamos a escuelas, empresas y secundarias en zonas vulnerables.</p>
+      <!-- HISTORIA con visual al lado -->
+      <section class="manifiesto manifiesto-split">
+        <div class="container manifiesto-grid">
+          <div class="manifiesto-text">
+            <p class="tag-seccion reveal">Historia</p>
+            <p class="text-progressive">HOUP nació en Monterrey en <em>2014</em> con una idea sencilla: cada persona carga <em>una mejor versión</em> de sí misma. Empezamos con retiros para jóvenes y hoy acompañamos a <em>escuelas, empresas y secundarias</em> en zonas vulnerables.</p>
+            <div class="manifiesto-firma reveal reveal-delay-3">
+              <span class="manifiesto-firma-numero">2014</span>
+              <div class="manifiesto-firma-text">
+                <span>empezamos</span>
+                <span>con un retiro, un grupo, una idea</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="visual-stack visual-stack-b" aria-hidden="true">
+            <figure class="visual-stack-foto">
+              <img src="img/fotos/quienes_somos_hero.jpg" alt="" loading="lazy">
+            </figure>
+            <figure class="visual-stack-foto">
+              <img src="img/fotos/quienes_somos_valores.jpg" alt="" loading="lazy">
+            </figure>
+            <div class="visual-stack-stat">
+              <span class="visual-stack-stat-num counter" data-target="3">0</span>
+              <span class="visual-stack-stat-label">ramas · una familia</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -247,6 +269,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=v4"></script>
+  <script src="js/main.js?v=v5"></script>
 </body>
 </html>

@@ -60,23 +60,39 @@
     });
   }
 
-  // ============ TEXT PROGRESSIVE (letras cambian de color) ============
-  // Toma cada .text-progressive y envuelve cada palabra en <span>
-  // Al scroll, activa cada palabra secuencialmente cuando entra al viewport
+  // ============ TEXT PROGRESSIVE (palabras encienden una por una) ============
+  // Preserva <em> y <strong>: cada palabra se envuelve en <span>; si está
+  // dentro de <em>/<strong>/.accent, el span lleva la clase .accent (cyan).
   function initTextProgressive() {
     const textBlocks = document.querySelectorAll('.text-progressive');
 
     textBlocks.forEach(block => {
-      // Si ya está dividido en spans manualmente, no tocar
-      if (block.querySelector('span')) return;
+      if (block.dataset.progressed === '1') return;
 
-      const text = block.innerHTML;
-      // Dividir en palabras conservando puntuación
-      const words = text.split(/(\s+)/);
-      block.innerHTML = words.map(w => {
-        if (w.trim() === '') return w;
-        return `<span>${w}</span>`;
-      }).join('');
+      // Walk todos los text nodes y envolver cada palabra
+      const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(node => {
+        if (!node.textContent.trim()) return;
+        const isAccent = !!node.parentElement.closest('em, strong, .accent');
+        const words = node.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        words.forEach(w => {
+          if (w.trim() === '') {
+            frag.appendChild(document.createTextNode(w));
+          } else {
+            const span = document.createElement('span');
+            span.textContent = w;
+            if (isAccent) span.classList.add('accent');
+            frag.appendChild(span);
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+
+      block.dataset.progressed = '1';
     });
 
     // Observer para cada párrafo progresivo
@@ -84,11 +100,10 @@
       const progressiveObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            // Usar todos los spans de palabras (no los wrappers)
             const spans = entry.target.querySelectorAll('span');
             spans.forEach((span, i) => {
-              setTimeout(() => {
-                span.classList.add('is-active');
-              }, i * 60); // 60ms entre cada palabra
+              setTimeout(() => span.classList.add('is-active'), i * 55);
             });
             progressiveObserver.unobserve(entry.target);
           }

@@ -2410,3 +2410,207 @@ p { max-width: 68ch; }
 /* ---- OCULTAR estilos del hero-split anterior (ya revertido) ---- */
 .hero-split { display: none; }
 
+
+/* ============================================================
+   V5 · Word rotator global, manifiesto más humano,
+   split patterns en más secciones, animaciones de texto
+   ============================================================ */
+
+/* ---- WORD ROTATOR global (funciona en cualquier <em class="word-rotator">) ---- */
+.word-rotator {
+  display: inline-block;
+  color: var(--cyan);
+  font-style: italic;
+  font-weight: 700;
+  position: relative;
+  min-width: 4ch;
+  white-space: nowrap;
+}
+
+.word-rotator::after {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--cyan);
+  margin-left: 0.1em;
+  vertical-align: baseline;
+  animation: caret-blink 1s infinite;
+  border-radius: 2px;
+}
+
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* En títulos oscuros (hero negro) el caret se vea bien */
+.hero-mini .word-rotator::after,
+.hero-editorial-title .word-rotator::after {
+  box-shadow: 0 0 8px rgba(2,193,244,0.5);
+}
+
+/* ---- MANIFIESTO: quitar badge chafo (ya no se usa) ---- */
+.collage-badge { display: none !important; }
+
+/* Fotos del collage un poco más grandes/limpias sin el badge */
+.collage-foto-2 {
+  top: 24%;
+  right: -4%;
+  width: 55%;
+  height: 45%;
+}
+
+/* ---- MANIFIESTO: contador animado 12 ---- */
+.manifiesto-firma-numero.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- MANIFIESTO: separador más sutil ---- */
+.manifiesto-firma {
+  border-top: 1px solid rgba(14,14,14,0.1);
+}
+
+/* ---- SECTION SPLIT genérico (texto + imagen/visual al lado) ---- */
+.section-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.section-split-reverse {
+  grid-template-columns: 1fr 1fr;
+}
+.section-split-reverse > :first-child { order: 2; }
+.section-split-reverse > :last-child { order: 1; }
+
+@media (max-width: 860px) {
+  .section-split,
+  .section-split-reverse {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .section-split-reverse > :first-child,
+  .section-split-reverse > :last-child { order: unset; }
+}
+
+/* Visual card para side: imagen con esquinas redondas + badge/stat */
+.visual-stack {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.visual-stack-foto {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px -15px rgba(0,0,0,0.25);
+  margin: 0;
+  transition: transform 700ms var(--ease);
+}
+
+.visual-stack-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Variante A: foto grande + foto pequeña encima */
+.visual-stack-a .visual-stack-foto:nth-child(1) {
+  top: 5%; left: 0;
+  width: 75%; height: 70%;
+}
+.visual-stack-a .visual-stack-foto:nth-child(2) {
+  bottom: 0; right: 0;
+  width: 55%; height: 50%;
+  border: 6px solid var(--fondo-blanco-roto);
+}
+
+/* Variante B (invertida): foto pequeña arriba, grande abajo */
+.visual-stack-b .visual-stack-foto:nth-child(1) {
+  top: 0; right: 0;
+  width: 60%; height: 50%;
+}
+.visual-stack-b .visual-stack-foto:nth-child(2) {
+  bottom: 5%; left: 0;
+  width: 72%; height: 65%;
+  border: 6px solid var(--fondo-blanco-roto);
+}
+
+/* Stat flotante sobre el stack */
+.visual-stack-stat {
+  position: absolute;
+  bottom: 12%;
+  right: 8%;
+  z-index: 10;
+  background: var(--negro);
+  color: var(--blanco);
+  padding: 1.25rem 1.75rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25), 0 0 40px rgba(2,193,244,0.15);
+  min-width: 10rem;
+  animation: pop-in 1s var(--ease) 0.4s backwards;
+}
+
+.visual-stack-stat-num {
+  font-family: var(--font-titulo);
+  font-weight: 800;
+  font-size: 2.25rem;
+  color: var(--cyan);
+  line-height: 1;
+  display: block;
+  letter-spacing: -0.03em;
+}
+
+.visual-stack-stat-label {
+  font-family: var(--font-titulo);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  display: block;
+  margin-top: 0.375rem;
+  font-weight: 500;
+}
+
+/* ---- HERO MINI: también usa reveal-up ---- */
+.hero-mini h1 { position: relative; }
+
+/* En hero-mini los text-progressive y bloques usen animación */
+.hero-mini .reveal-up {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  animation: reveal-up-anim 1s var(--ease) 0.2s forwards;
+}
+
+/* ---- PRINCIPIOS GRID — hover más vivo ---- */
+.principio {
+  transition: transform 400ms var(--ease);
+}
+.principio:hover {
+  transform: translateY(-4px);
+}
+.principio:hover .principio-num {
+  color: var(--cyan);
+  text-shadow: 0 0 24px rgba(2,193,244,0.4);
+}
+
+/* ---- CIFRAS: hover efecto en los counters ---- */
+.cifra { transition: transform 400ms var(--ease); }
+.cifra:hover { transform: translateY(-6px); }
+.cifra:hover .cifra-num { color: var(--cyan); }
+
+/* ---- LOGOS CLIENTES: hover mejorado ---- */
+.logo-cliente {
+  transition: all 300ms var(--ease);
+  position: relative;
+}
+.logo-cliente:hover {
+  color: var(--cyan);
+  transform: scale(1.05);
+}
+
