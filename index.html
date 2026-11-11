@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css?v=v2">
+  <link rel="stylesheet" href="css/styles.css?v=v3">
   
   <script type="application/ld+json">
   [
@@ -57,7 +57,7 @@
       "legalName": "Promotora de Desarrollo Humano HOUP, S.C.",
       "alternateName": "HOUP — Decide ser",
       "url": "https://houp.mx",
-      "logo": "https://houp.mx/img/logos/brand-houp.png",
+      "logo": "https://houp.mx/img/logos/logo_houp_transparente.png",
       "image": "https://houp.mx/img/og/og-image.jpg",
       "description": "Organización de desarrollo humano en Monterrey, México. Desde 2014 sacamos la mejor versión de las personas en escuelas y empresas, con base en la psicología positiva.",
       "foundingDate": "2014",
@@ -90,7 +90,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="header-logo" aria-label="HOUP — Inicio">
-        <img src="img/logos/brand-houp.png" alt="HOUP — Decide ser la mejor versión de ti">
+        <img src="img/logos/logo_houp_transparente.png" alt="HOUP — Decide ser la mejor versión de ti">
       </a>
       <nav class="header-nav">
         <a href="educacion.html">Educación</a>
@@ -107,20 +107,41 @@
 
   <main>
 
-    <!-- HERO -->
-    <section class="hero-editorial">
-      <div class="hero-editorial-bg">
-        <img src="img/fotos/home_hero.jpg" alt="Comunidad HOUP — alumnos y maestros en experiencia de bienestar socioemocional">
-      </div>
-      <div class="hero-editorial-content">
-        <p class="hero-editorial-eyebrow">Desarrollo humano · Monterrey</p>
-        <h1 class="hero-editorial-title">Decide ser la mejor versión <em>de ti.</em></h1>
-        <p class="hero-editorial-sub">Construimos experiencias que dejan huella en escuelas y empresas, con la psicología positiva como base.</p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <a href="educacion.html" class="btn btn-cyan"><span>Escuelas</span> <span class="arrow-icon">→</span></a>
-          <a href="empresas.html" class="btn btn-cyan"><span>Empresas</span> <span class="arrow-icon">→</span></a>
-          <a href="fundacion.html" class="btn btn-cyan"><span>Fundación</span> <span class="arrow-icon">→</span></a>
+    <!-- HERO SPLIT — estilo DICTA -->
+    <section class="hero-split">
+      <div class="hero-split-inner">
+
+        <div class="hero-split-text">
+          <span class="hero-split-eyebrow">Desarrollo humano · Monterrey</span>
+          <h1>Decide ser la mejor versión <span class="word-rotator" data-words="de ti.|de tu equipo.|de tu escuela.|de tu empresa."></span></h1>
+          <p class="hero-split-sub">Construimos experiencias que dejan huella en escuelas y empresas, con la psicología positiva como base.</p>
+          <div class="hero-split-ctas">
+            <a href="educacion.html" class="btn btn-cyan"><span>Escuelas</span> <span class="arrow-icon">→</span></a>
+            <a href="empresas.html" class="btn btn-cyan"><span>Empresas</span> <span class="arrow-icon">→</span></a>
+            <a href="fundacion.html" class="btn btn-cyan"><span>Fundación</span> <span class="arrow-icon">→</span></a>
+          </div>
         </div>
+
+        <div class="hero-orbital" aria-hidden="true">
+          <div class="orbital-ring orbital-ring-1"></div>
+          <div class="orbital-ring orbital-ring-2"></div>
+          <div class="orbital-ring orbital-ring-3"></div>
+          <div class="orbital-rotate"></div>
+
+          <div class="orbital-dot orbital-dot-1"></div>
+          <div class="orbital-dot orbital-dot-2"></div>
+          <div class="orbital-dot orbital-dot-3"></div>
+
+          <div class="orbital-core">
+            <span class="orbital-core-label">Vivimos</span>
+            <span class="orbital-core-word" data-rotate='["Positividad","Compromiso","Carácter","Comunidad","Conciencia"]'>Positividad</span>
+          </div>
+
+          <span class="orbital-tag orbital-tag-1">Educación</span>
+          <span class="orbital-tag orbital-tag-2">Empresas</span>
+          <span class="orbital-tag orbital-tag-3">Fundación</span>
+        </div>
+
       </div>
     </section>
 
@@ -309,6 +330,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=v2"></script>
+  <script src="js/main.js?v=v3"></script>
 </body>
 </html>

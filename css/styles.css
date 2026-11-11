@@ -1460,3 +1460,528 @@ p { max-width: 68ch; }
 @media (hover: none) and (pointer: coarse) {
   .btn, .btn-link { min-height: 44px; }
 }
+
+/* ============================================================
+   V3 · REDISEÑO ESTILO DICTA · NOV 2026
+   Hero split, grid pattern, orbital, servicios WOW, animaciones
+   ============================================================ */
+
+/* ---- HERO SPLIT (estilo DICTA) ---- */
+.hero-split {
+  position: relative;
+  min-height: 100vh;
+  background: var(--negro);
+  color: var(--blanco);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: clamp(7rem, 12vw, 10rem) 0 clamp(8rem, 12vw, 10rem);
+}
+
+/* Fondo: grid pattern sutil */
+.hero-split::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center;
+  mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at center, black 30%, transparent 85%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Difuminados cyan radiales (dos glows) */
+.hero-split::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 600px at 15% 40%, rgba(2,193,244,0.22) 0%, transparent 60%),
+    radial-gradient(circle 500px at 85% 70%, rgba(2,193,244,0.12) 0%, transparent 55%),
+    radial-gradient(circle 400px at 50% 0%, rgba(2,193,244,0.08) 0%, transparent 60%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-split-inner {
+  position: relative;
+  z-index: 10;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--padding-x);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(3rem, 5vw, 6rem);
+  align-items: center;
+}
+
+.hero-split-text { position: relative; }
+
+.hero-split-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.125rem 0.5rem 0.875rem;
+  border: 1px solid rgba(2,193,244,0.35);
+  border-radius: 999px;
+  background: rgba(2,193,244,0.08);
+  backdrop-filter: blur(8px);
+  color: var(--cyan);
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.hero-split-eyebrow::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--cyan);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-split h1 {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  margin-bottom: 1.75rem;
+  font-weight: 800;
+}
+
+.hero-split h1 .word-rotator {
+  display: inline-block;
+  color: var(--cyan);
+  font-style: italic;
+  position: relative;
+  min-width: 6ch;
+}
+
+.hero-split h1 .word-rotator::after {
+  content: '|';
+  display: inline-block;
+  margin-left: 0.15em;
+  color: var(--cyan);
+  font-weight: 300;
+  animation: caret-blink 1s infinite;
+}
+
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.hero-split-sub {
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  color: var(--gris-claro);
+  max-width: 36rem;
+  margin-bottom: 2.75rem;
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+.hero-split-ctas {
+  display: flex;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ---- ORBITAL (lado derecho del hero) ---- */
+.hero-orbital {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Aros concéntricos */
+.orbital-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(2,193,244,0.25);
+  pointer-events: none;
+}
+.orbital-ring-1 { inset: 0; }
+.orbital-ring-2 { inset: 14%; border-color: rgba(2,193,244,0.18); }
+.orbital-ring-3 { inset: 28%; border-color: rgba(2,193,244,0.12); }
+
+/* Aro giratorio con dashes */
+.orbital-rotate {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(2,193,244,0.55);
+  animation: rotate-slow 32s linear infinite;
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Puntos orbitales */
+.orbital-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 24px var(--cyan), 0 0 48px rgba(2,193,244,0.4);
+  top: 50%;
+  left: 50%;
+  margin: -7px 0 0 -7px;
+  transform-origin: center;
+}
+
+.orbital-dot-1 {
+  animation: orbit-1 20s linear infinite;
+}
+.orbital-dot-2 {
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  box-shadow: 0 0 20px var(--cyan);
+  animation: orbit-2 28s linear infinite;
+}
+.orbital-dot-3 {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  opacity: 0.7;
+  animation: orbit-3 15s linear infinite reverse;
+}
+
+@keyframes orbit-1 {
+  from { transform: rotate(0deg) translateX(230px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(230px) rotate(-360deg); }
+}
+@keyframes orbit-2 {
+  from { transform: rotate(90deg) translateX(180px) rotate(-90deg); }
+  to { transform: rotate(450deg) translateX(180px) rotate(-450deg); }
+}
+@keyframes orbit-3 {
+  from { transform: rotate(210deg) translateX(135px) rotate(-210deg); }
+  to { transform: rotate(570deg) translateX(135px) rotate(-570deg); }
+}
+
+/* Núcleo central con palabra que rota */
+.orbital-core {
+  position: relative;
+  z-index: 5;
+  width: clamp(180px, 36%, 220px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(2,193,244,0.25) 0%, transparent 60%),
+    rgba(2,193,244,0.08);
+  border: 1px solid rgba(2,193,244,0.4);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  box-shadow:
+    inset 0 0 40px rgba(2,193,244,0.15),
+    0 0 60px rgba(2,193,244,0.15);
+}
+
+.orbital-core-label {
+  font-family: var(--font-titulo);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.625rem;
+  font-weight: 600;
+}
+
+.orbital-core-word {
+  font-family: var(--font-titulo);
+  font-weight: 800;
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  color: var(--cyan);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  min-height: 1.1em;
+}
+
+/* Etiquetas de ramas que rotan en el borde del orbital */
+.orbital-tag {
+  position: absolute;
+  z-index: 6;
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  padding: 0.5rem 0.875rem;
+  background: rgba(14,14,14,0.8);
+  border: 1px solid rgba(2,193,244,0.25);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+.orbital-tag-1 { top: 5%; right: 8%; }
+.orbital-tag-2 { bottom: 12%; left: 0%; }
+.orbital-tag-3 { top: 48%; right: -5%; }
+
+/* ---- HEADER ajustes: ocultar el header sticky dark hasta scroll ---- */
+.site-header {
+  padding: 1rem 0;
+}
+.header-logo img {
+  height: 44px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+}
+.site-header.is-scrolled .header-logo img,
+.site-header.solid .header-logo img {
+  height: 36px;
+}
+
+/* ---- SERVICIOS WOW (reemplaza servicios-lista plano) ---- */
+.servicios-wow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.servicio-wow {
+  position: relative;
+  padding: 2.25rem 2rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 500ms var(--ease), border-color 500ms var(--ease), background 500ms var(--ease);
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+}
+
+.servicio-wow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(2,193,244,0.18) 0%, transparent 45%);
+  opacity: 0;
+  transition: opacity 500ms var(--ease);
+  pointer-events: none;
+}
+
+.servicio-wow:hover {
+  transform: translateY(-6px);
+  border-color: rgba(2,193,244,0.45);
+  background: rgba(2,193,244,0.04);
+  box-shadow: 0 20px 60px -20px rgba(2,193,244,0.35);
+}
+
+.servicio-wow:hover::before {
+  opacity: 1;
+}
+
+.servicio-wow-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  background: rgba(2,193,244,0.08);
+  transition: all 400ms var(--ease);
+  position: relative;
+  z-index: 2;
+}
+
+.servicio-wow:hover .servicio-wow-num {
+  background: var(--cyan);
+  color: var(--negro);
+  transform: scale(1.1) rotate(8deg);
+  box-shadow: 0 0 24px var(--cyan);
+}
+
+.servicio-wow h3 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--blanco);
+  margin-bottom: 0.875rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 2;
+}
+
+.servicio-wow p {
+  font-size: 0.9375rem;
+  color: var(--gris-claro);
+  line-height: 1.55;
+  margin: 0;
+  flex-grow: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.servicio-wow-arrow {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-titulo);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(2,193,244,0.7);
+  transition: all 400ms var(--ease);
+  position: relative;
+  z-index: 2;
+}
+
+.servicio-wow-arrow .arrow {
+  display: inline-block;
+  transition: transform 400ms var(--ease);
+}
+
+.servicio-wow:hover .servicio-wow-arrow {
+  color: var(--cyan);
+}
+
+.servicio-wow:hover .servicio-wow-arrow .arrow {
+  transform: translateX(6px);
+}
+
+/* Servicio destacado (más grande) */
+.servicio-wow.highlight {
+  grid-column: span 2;
+  background: linear-gradient(135deg, rgba(2,193,244,0.08) 0%, rgba(2,193,244,0.02) 100%);
+  border-color: rgba(2,193,244,0.3);
+}
+
+@media (max-width: 768px) {
+  .servicio-wow.highlight { grid-column: span 1; }
+}
+
+/* ---- MARQUEE (texto corriendo horizontal estilo DICTA) ---- */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(14,14,14,0.08);
+  border-bottom: 1px solid rgba(14,14,14,0.08);
+  background: var(--fondo-blanco-roto);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 3.5rem;
+  animation: marquee-scroll 40s linear infinite;
+  width: max-content;
+  align-items: center;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  font-family: var(--font-titulo);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  color: var(--negro);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.marquee-item::after {
+  content: '◆';
+  color: var(--cyan);
+  font-size: 0.5rem;
+}
+
+/* Marquee variante dark */
+.marquee.dark {
+  background: var(--negro);
+  border-color: rgba(255,255,255,0.08);
+}
+.marquee.dark .marquee-item {
+  color: var(--blanco);
+}
+
+/* ---- TEXT REVEAL progresivo mejorado (por palabras) ---- */
+.text-reveal-words {
+  display: inline;
+}
+.text-reveal-words .word {
+  display: inline-block;
+  opacity: 0.2;
+  transition: opacity 600ms var(--ease), color 600ms var(--ease);
+  margin-right: 0.25em;
+  will-change: opacity;
+}
+.text-reveal-words .word.lit {
+  opacity: 1;
+}
+.text-reveal-words .word.accent.lit {
+  color: var(--cyan);
+}
+
+/* ---- Header más transparente para que el nuevo hero respire ---- */
+.site-header.solid-light {
+  background: rgba(14, 14, 14, 0.55);
+}
+
+/* ---- Responsive para hero split ---- */
+@media (max-width: 960px) {
+  .hero-split-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .hero-orbital {
+    max-width: 360px;
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-orbital { max-width: 280px; }
+  .orbital-tag { font-size: 0.5625rem; padding: 0.375rem 0.625rem; }
+  .orbital-tag-1 { top: 2%; right: 2%; }
+  .orbital-tag-2 { bottom: 5%; left: -5%; }
+  .orbital-tag-3 { top: 48%; right: -10%; }
+}
+

@@ -190,4 +190,76 @@
     }
   });
 
+  // ============ WORD ROTATOR (hero "de ti. / de tu equipo." etc.) ============
+  document.querySelectorAll('.word-rotator').forEach(el => {
+    const words = (el.dataset.words || '').split('|').filter(Boolean);
+    if (words.length === 0) return;
+    let i = 0;
+    const type = (text, cb) => {
+      el.firstChild && el.firstChild.nodeType === 3
+        ? (el.firstChild.textContent = '')
+        : el.insertBefore(document.createTextNode(''), el.firstChild);
+      let j = 0;
+      const tick = () => {
+        if (j <= text.length) {
+          el.firstChild.textContent = text.slice(0, j);
+          j++;
+          setTimeout(tick, 60);
+        } else if (cb) cb();
+      };
+      tick();
+    };
+    const del = (cb) => {
+      const current = el.firstChild ? el.firstChild.textContent : '';
+      let j = current.length;
+      const tick = () => {
+        if (j >= 0) {
+          el.firstChild.textContent = current.slice(0, j);
+          j--;
+          setTimeout(tick, 35);
+        } else if (cb) cb();
+      };
+      tick();
+    };
+    const cycle = () => {
+      type(words[i], () => {
+        setTimeout(() => {
+          del(() => {
+            i = (i + 1) % words.length;
+            cycle();
+          });
+        }, 2200);
+      });
+    };
+    cycle();
+  });
+
+  // ============ ORBITAL CORE WORD ROTATOR ============
+  document.querySelectorAll('[data-rotate]').forEach(el => {
+    let words;
+    try { words = JSON.parse(el.dataset.rotate); } catch(e) { return; }
+    if (!Array.isArray(words) || words.length === 0) return;
+    let i = 0;
+    el.style.transition = 'opacity 400ms ease';
+    setInterval(() => {
+      el.style.opacity = '0';
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.style.opacity = '1';
+      }, 420);
+    }, 2600);
+  });
+
+  // ============ HOVER GLOW (sigue el cursor en servicios WOW) ============
+  document.querySelectorAll('[data-hover-glow]').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty('--mx', `${x}%`);
+      el.style.setProperty('--my', `${y}%`);
+    });
+  });
+
 })();
