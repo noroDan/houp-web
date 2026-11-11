@@ -4043,3 +4043,179 @@ select:focus-visible,
   .mobile-menu-socials { display: none !important; }
 }
 
+
+/* ============================================================
+   V9 · Fixes mobile: contacto grid, WhatsApp btn, DONAR glow,
+   letra fantasma del nav .active
+   ============================================================ */
+
+/* ---- CONTACTO: grid que responde en mobile ---- */
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .contacto-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+}
+
+/* ---- NAV .active / hover: quitar la "letra fantasma" ---- */
+/* El ::after con la flecha → + el padding-shift creaban un visual raro
+   en los links activos. Lo quitamos en mobile — el color cyan ya es
+   suficiente feedback visual. */
+@media (max-width: 960px) {
+
+  /* QUITAR la flecha ::after en los links del nav mobile */
+  .header-nav .nav-items a::after {
+    display: none !important;
+  }
+
+  /* QUITAR el padding-shift en hover/active (causaba layout shift) */
+  .header-nav a:hover,
+  .header-nav a.active {
+    padding-left: 0 !important;
+    color: var(--cyan) !important;
+  }
+
+  /* Numeración más sutil (sin que compita con el link) */
+  .header-nav .nav-items a::before {
+    opacity: 0.4 !important;
+  }
+
+  /* El link active: número también cyan para claridad */
+  .header-nav .nav-items a.active::before {
+    opacity: 1 !important;
+    color: var(--cyan) !important;
+  }
+
+  /* Evitar text-shadow o filter heredado del header que cause glow */
+  .header-nav .nav-items a {
+    text-shadow: none !important;
+    filter: none !important;
+  }
+
+  /* Evitar sombra raras del logo del header en el nav abierto */
+  .header-nav.is-open ~ * { pointer-events: none; }
+  .site-header:has(.header-nav.is-open) .header-logo img {
+    filter: none !important;
+  }
+}
+
+/* ---- BOTÓN WhatsApp directo: border sólido + sin animación de entrada ---- */
+@media (max-width: 960px) {
+  .btn-whatsapp {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    padding: 1.125rem 1.5rem !important;
+    background: transparent !important;
+    color: var(--blanco) !important;
+    border: 2px solid var(--cyan) !important;
+    border-radius: 999px !important;
+    font-family: var(--font-titulo) !important;
+    font-weight: 700 !important;
+    font-size: 0.875rem !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: background 200ms var(--ease), color 200ms var(--ease) !important;
+  }
+
+  .btn-whatsapp:hover,
+  .btn-whatsapp:active {
+    background: var(--cyan) !important;
+    color: var(--negro) !important;
+    transform: none !important;
+  }
+
+  .btn-whatsapp::before {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    flex-shrink: 0;
+  }
+
+  /* Footer completo del menú: sin animación de entrada */
+  .mobile-menu-footer,
+  .header-nav.is-open .mobile-menu-footer {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .mobile-menu-socials {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    margin-top: 0.75rem !important;
+  }
+
+  .mobile-menu-socials a {
+    animation: none !important;
+    opacity: 0.6 !important;
+    transform: none !important;
+  }
+}
+
+/* ---- BOTÓN DONAR: menos glow, más proporcional (web + mobile) ---- */
+.btn-donar-header {
+  box-shadow: 0 2px 8px rgba(2,193,244,0.25) !important;
+  font-size: 0.75rem !important;
+  padding: 0.5rem 1.125rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+.btn-donar-header::before {
+  display: none !important;
+}
+
+.btn-donar-header:hover {
+  box-shadow: 0 4px 14px rgba(2,193,244,0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* En mobile menu: botón donar proporcional al menú, sin halo exagerado */
+@media (max-width: 960px) {
+  .mobile-menu-footer .btn-donar-header {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    background: var(--cyan) !important;
+    color: var(--negro) !important;
+    padding: 1.125rem 1.5rem !important;
+    font-size: 0.875rem !important;
+    letter-spacing: 0.1em !important;
+    border-radius: 999px !important;
+    box-shadow: 0 4px 14px rgba(2,193,244,0.3) !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  .mobile-menu-footer .btn-donar-header::before {
+    display: none !important;
+  }
+}
+
+/* ---- Hero mini sub en mobile: no bleed al card blanco ---- */
+@media (max-width: 640px) {
+  .hero-mini-sub {
+    max-width: 100% !important;
+  }
+  .hero-mini-content {
+    padding-bottom: 2rem !important;
+  }
+}
+
