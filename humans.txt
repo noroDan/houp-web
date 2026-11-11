@@ -1,0 +1,18 @@
+/* TEAM */
+Founder: Daniel Noroña & Andrea Noroña
+Site: houp.mx
+Instagram: @houpmx
+Location: Monterrey, Nuevo León, México
+
+/* HOUP */
+Founded: 2014
+Legal: Promotora de Desarrollo Humano HOUP, S.C.
+Mission: Sacamos la mejor versión de las personas.
+Slogan: Decide ser la mejor versión de ti.
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript
+Hosting: GitHub Pages
+Fonts: Montserrat
+Build: Static site, no framework
+Last update: 2026-11-10

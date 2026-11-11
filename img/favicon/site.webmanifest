@@ -1,0 +1,12 @@
+{
+  "name": "HOUP",
+  "short_name": "HOUP",
+  "description": "Sacamos la mejor versión de las personas",
+  "icons": [
+    { "src": "/img/favicon/favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/img/favicon/favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#02C1F4",
+  "background_color": "#F5F5F3",
+  "display": "standalone"
+}
