@@ -287,4 +287,41 @@
     });
   });
 
+  // ============ WHATSAPP DIRECT (app en mobile, Web en desktop) ============
+  // Intercepta clicks en links con data-wa-phone y abre WhatsApp directo
+  // sin pasar por la página intermedia de wa.me
+  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  const isMacOS = /Mac/i.test(navigator.platform);
+  const isWindows = /Win/i.test(navigator.platform);
+
+  document.querySelectorAll('[data-wa-phone]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const phone = link.dataset.waPhone;
+      const text = encodeURIComponent(link.dataset.waText || '');
+
+      if (isMobile) {
+        // iOS/Android: protocolo whatsapp:// abre la app directo
+        // Fallback a wa.me si no está instalada (el OS lo maneja)
+        const appUrl = `whatsapp://send?phone=${phone}&text=${text}`;
+        const webFallback = `https://wa.me/${phone}?text=${text}`;
+
+        // Intentar abrir la app; si falla en 1s, abrir wa.me
+        const start = Date.now();
+        window.location.href = appUrl;
+        setTimeout(() => {
+          // Si seguimos en la página después de 1.2s, abrimos el fallback
+          if (Date.now() - start < 1500 && !document.hidden) {
+            window.location.href = webFallback;
+          }
+        }, 1200);
+      } else {
+        // Desktop: WhatsApp Web directo (abre web.whatsapp.com/send)
+        // Si no tienen sesión, WhatsApp Web les pedirá escanear QR
+        const webUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${text}`;
+        window.open(webUrl, '_blank', 'noopener');
+      }
+    });
+  });
+
 })();
