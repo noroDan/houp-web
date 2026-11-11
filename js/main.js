@@ -262,4 +262,14 @@
     });
   });
 
+  // ============ CLICK TO EXPAND (servicios WOW) ============
+  // Al click en una card .servicio-wow, toggle .is-open para mostrar el detalle
+  document.querySelectorAll('.servicio-wow').forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Si clickearon un link dentro de la card, dejar que el link funcione
+      if (e.target.closest('a')) return;
+      card.classList.toggle('is-open');
+    });
+  });
+
 })();

@@ -1985,3 +1985,428 @@ p { max-width: 68ch; }
   .orbital-tag-3 { top: 48%; right: -10%; }
 }
 
+
+/* ============================================================
+   V4 · Revert hero a foto humana, logo header grande,
+   manifiesto con collage, click-to-expand en servicios wow
+   ============================================================ */
+
+/* ---- HEADER LOGO MÁS GRANDE (Daniel pidió "muy pequeño") ---- */
+.header-logo img {
+  height: 68px !important;
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+}
+.site-header.is-scrolled .header-logo img,
+.site-header.solid .header-logo img {
+  height: 50px !important;
+}
+
+/* ---- HERO EDITORIAL · mejoras sobre el diseño anterior ---- */
+.hero-editorial {
+  align-items: center !important;
+  padding-top: 7rem;
+}
+
+/* Foto más presente (menos opacidad bajada) */
+.hero-editorial-bg img {
+  opacity: 0.55 !important;
+  animation: slow-zoom 22s ease-in-out infinite alternate;
+}
+
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+/* Mejor gradient sobre la foto para legibilidad */
+.hero-editorial-bg::after {
+  background:
+    linear-gradient(to right,
+      rgba(14,14,14,0.85) 0%,
+      rgba(14,14,14,0.55) 55%,
+      rgba(14,14,14,0.35) 100%),
+    linear-gradient(to top,
+      rgba(14,14,14,0.9) 0%,
+      rgba(14,14,14,0.2) 40%,
+      rgba(14,14,14,0.6) 100%) !important;
+}
+
+/* Difuminado cyan sutil adicional */
+.hero-editorial-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle 500px at 20% 60%, rgba(2,193,244,0.15) 0%, transparent 60%),
+    radial-gradient(circle 400px at 90% 30%, rgba(2,193,244,0.08) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.hero-editorial-content {
+  padding: 0 var(--padding-x) !important;
+  z-index: 10 !important;
+}
+
+.hero-editorial-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+/* Scroll hint (debajo del hero) */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: clamp(2rem, 4vw, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-titulo);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  pointer-events: none;
+  animation: fade-in-slow 1.5s ease 1.2s both;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 2.5rem;
+  background: linear-gradient(to bottom, var(--cyan), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--blanco);
+  animation: scroll-line-drop 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-line-drop {
+  0% { top: -50%; }
+  100% { top: 100%; }
+}
+
+@keyframes fade-in-slow {
+  from { opacity: 0; transform: translate(-50%, 1rem); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ---- REVEAL-UP (fade + rise on load) ---- */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(2rem);
+  animation: reveal-up-anim 1s var(--ease) 0.2s forwards;
+}
+
+.reveal-up.reveal-delay-1 { animation-delay: 0.35s; }
+.reveal-up.reveal-delay-2 { animation-delay: 0.5s; }
+.reveal-up.reveal-delay-3 { animation-delay: 0.7s; }
+
+@keyframes reveal-up-anim {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- MANIFIESTO SPLIT (con collage de fotos al lado) ---- */
+.manifiesto-split {
+  padding-top: clamp(5rem, 9vw, 7rem);
+  padding-bottom: clamp(5rem, 9vw, 7rem);
+}
+
+.manifiesto-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.manifiesto-text { }
+
+/* Firma con número grande */
+.manifiesto-firma {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(14,14,14,0.08);
+}
+
+.manifiesto-firma-numero {
+  font-family: var(--font-titulo);
+  font-weight: 800;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  color: var(--cyan);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.manifiesto-firma-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  line-height: 1.2;
+}
+
+.manifiesto-firma-text span:first-child {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--negro);
+  letter-spacing: -0.01em;
+}
+
+.manifiesto-firma-text span:last-child {
+  font-size: 0.875rem;
+  color: var(--gris);
+  max-width: 14rem;
+}
+
+/* Collage de 3 fotos con animación */
+.manifiesto-collage {
+  position: relative;
+  aspect-ratio: 1 / 1.1;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.collage-foto {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px -15px rgba(0,0,0,0.25);
+  transition: transform 700ms var(--ease), box-shadow 700ms var(--ease);
+  margin: 0;
+}
+
+.collage-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1200ms var(--ease);
+}
+
+.collage-foto figcaption {
+  position: absolute;
+  bottom: 0.875rem;
+  left: 0.875rem;
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blanco);
+  padding: 0.375rem 0.75rem;
+  background: rgba(14,14,14,0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: all 400ms var(--ease);
+}
+
+.collage-foto:hover {
+  transform: scale(1.03) translateZ(0);
+  box-shadow: 0 30px 70px -15px rgba(2,193,244,0.4);
+  z-index: 10;
+}
+
+.collage-foto:hover img {
+  transform: scale(1.08);
+}
+
+.collage-foto:hover figcaption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Posicionamiento del collage: 3 fotos escalonadas */
+.collage-foto-1 {
+  top: 0;
+  left: 8%;
+  width: 60%;
+  height: 48%;
+  animation: float-slow-1 7s ease-in-out infinite;
+}
+.collage-foto-2 {
+  top: 28%;
+  right: 0;
+  width: 52%;
+  height: 42%;
+  animation: float-slow-2 8s ease-in-out infinite 0.5s;
+}
+.collage-foto-3 {
+  bottom: 0;
+  left: 0;
+  width: 56%;
+  height: 46%;
+  animation: float-slow-3 9s ease-in-out infinite 1s;
+}
+
+@keyframes float-slow-1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes float-slow-2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+@keyframes float-slow-3 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Badge "Decide ser" en el collage */
+.collage-badge {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+  z-index: 20;
+  background: var(--negro);
+  color: var(--blanco);
+  border-radius: 999px;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  gap: 0.375rem;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25), 0 0 40px rgba(2,193,244,0.2);
+  animation: pop-in 1s var(--ease) 0.5s backwards, pulse-badge 3.5s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+
+.collage-badge-cyan { color: var(--cyan); font-style: italic; }
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translate(-30%, -50%) scale(0.5); }
+  to { opacity: 1; transform: translate(-30%, -50%) scale(1); }
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 10px 40px rgba(0,0,0,0.25), 0 0 40px rgba(2,193,244,0.2); }
+  50% { box-shadow: 0 10px 40px rgba(0,0,0,0.3), 0 0 60px rgba(2,193,244,0.5); }
+}
+
+/* Responsive manifiesto */
+@media (max-width: 860px) {
+  .manifiesto-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .manifiesto-collage { max-width: 380px; }
+}
+
+/* ---- SERVICIOS WOW · click-to-expand + hover color change ---- */
+.servicio-wow {
+  cursor: pointer; /* Click para expandir */
+}
+
+/* Hover: cambia a fondo cyan más intenso */
+.servicio-wow:hover {
+  background: linear-gradient(135deg, rgba(2,193,244,0.14) 0%, rgba(2,193,244,0.04) 100%) !important;
+  border-color: rgba(2,193,244,0.55) !important;
+}
+
+/* Contenido expandible (oculto por default) */
+.servicio-wow-expand {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  transition:
+    max-height 600ms var(--ease),
+    opacity 400ms var(--ease),
+    margin-top 400ms var(--ease);
+  border-top: 1px solid rgba(2,193,244,0);
+  padding-top: 0;
+}
+
+.servicio-wow.is-open .servicio-wow-expand {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top-color: rgba(2,193,244,0.25);
+}
+
+.servicio-wow-expand ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.servicio-wow-expand li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--gris-claro);
+  line-height: 1.5;
+}
+
+.servicio-wow-expand li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+/* Al estar abierto: fondo cyan oscuro, texto más vibrante */
+.servicio-wow.is-open {
+  background: linear-gradient(135deg, rgba(2,193,244,0.18) 0%, rgba(2,193,244,0.06) 100%) !important;
+  border-color: var(--cyan) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -20px rgba(2,193,244,0.45);
+}
+
+/* Flecha que indica "clickable" */
+.servicio-wow::after {
+  content: '+';
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(2,193,244,0.1);
+  border: 1px solid rgba(2,193,244,0.3);
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: all 400ms var(--ease);
+  z-index: 3;
+}
+
+.servicio-wow.is-open::after {
+  content: '−';
+  background: var(--cyan);
+  color: var(--negro);
+  transform: rotate(180deg);
+}
+
+/* ---- OCULTAR estilos del hero-split anterior (ya revertido) ---- */
+.hero-split { display: none; }
+
