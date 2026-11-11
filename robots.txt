@@ -1,5 +1,17 @@
+# HOUP — robots.txt
 User-agent: *
 Allow: /
+Disallow: /img/favicon/
 Disallow: /404.html
+
+# AI crawlers — bienvenidos
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: PerplexityBot
+Allow: /
 
 Sitemap: https://houp.mx/sitemap.xml
