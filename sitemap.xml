@@ -47,6 +47,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://houp.mx/blog/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://houp.mx/blog/permah-por-que-funciona.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://houp.mx/blog/las-4-c-equipos-alto-rendimiento.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://houp.mx/blog/metodo-flor-educacion-positiva.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://houp.mx/aviso-de-privacidad.html</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>yearly</changefreq>
