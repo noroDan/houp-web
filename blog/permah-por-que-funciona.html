@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/styles.css?v=v12">
+  <link rel="stylesheet" href="../css/styles.css?v=v13">
 
   <script type="application/ld+json">
   {
@@ -197,6 +197,92 @@
     </article>
   </main>
 
+    <!-- ============================================================
+       NEWSLETTER · MailerLite integrado con lenguaje HOUP
+       ============================================================ -->
+  <section class="newsletter-cta" aria-labelledby="newsletter-title">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <span class="eyebrow">Newsletter HOUP</span>
+        <h2 id="newsletter-title">Un correo al mes <em>sobre lo que de verdad transforma personas.</em></h2>
+        <p>Artículos cortos sobre bienestar humano, equipos de alto rendimiento y educación positiva. Basado en evidencia, no en motivación genérica. Sin spam.</p>
+      </div>
+
+      <div class="newsletter-form">
+        <div id="mlb2-48515667" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-48515667">
+          <div class="ml-form-align-center">
+            <div class="ml-form-embedWrapper embedForm">
+              <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+                <div class="ml-form-embedContent">
+                  <h4>Newsletter</h4>
+                  <p>Signup for news and special offers!</p>
+                </div>
+                <form class="ml-block-form"
+                      action="https://assets.mailerlite.com/jsonp/2793314/forms/204036901914544125/subscribe"
+                      data-code=""
+                      method="post"
+                      target="_blank">
+                  <div class="ml-form-formContent">
+                    <div class="ml-form-fieldRow ml-last-item">
+                      <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                        <input aria-label="email"
+                               aria-required="true"
+                               type="email"
+                               class="form-control"
+                               name="fields[email]"
+                               placeholder="tu@correo.com"
+                               autocomplete="email">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="ml-form-recaptcha ml-validate-required">
+                    <div class="g-recaptcha" data-sitekey="6Lf1KHQUAAAAAFNKEX1hdSWCS3mRMv4FlFaNslaD"></div>
+                  </div>
+
+                  <input type="hidden" name="ml-submit" value="1">
+
+                  <div class="ml-form-embedSubmit">
+                    <button type="submit" class="primary">Suscribirme</button>
+                    <button disabled="disabled" style="display: none;" type="button" class="loading">
+                      <div class="ml-form-embedSubmitLoad"></div>
+                      <span class="sr-only">Enviando...</span>
+                    </button>
+                  </div>
+
+                  <input type="hidden" name="anticsrf" value="true">
+                </form>
+              </div>
+
+              <div class="ml-form-successBody row-success" style="display: none">
+                <div class="ml-form-successContent">
+                  <h4>¡Listo! 🎉</h4>
+                  <p>Te sumaste a la newsletter de HOUP. Nos vemos pronto en tu bandeja.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="newsletter-privacy">Al suscribirte aceptas nuestro <a href="/aviso-de-privacidad.html">aviso de privacidad</a>. Puedes darte de baja cuando quieras.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MailerLite scripts -->
+  <script>
+    function ml_webform_success_48515667() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-48515667 .row-success').show();
+      $('.ml-subscribe-form-48515667 .row-form').hide();
+    }
+  </script>
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script>
+    fetch("https://assets.mailerlite.com/jsonp/2793314/forms/204036901914544125/takel");
+  </script>
+
   <footer class="site-footer">
     <div class="footer-inner">
       <div>
@@ -225,6 +311,6 @@
     </div>
   </footer>
 
-  <script src="../js/main.js?v=v12"></script>
+  <script src="../js/main.js?v=v13"></script>
 </body>
 </html>
