@@ -5626,3 +5626,29 @@ select:focus-visible,
     aspect-ratio: 16 / 10;
   }
 }
+
+/* V21 · Fix alineación ícono WhatsApp en menú móvil */
+@media (max-width: 860px) {
+  .mobile-menu-footer .btn-whatsapp,
+  .mobile-menu-footer a.btn-whatsapp {
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.75rem !important;
+    padding: 1rem 1.5rem !important;
+  }
+  .mobile-menu-footer .btn-whatsapp::before,
+  .mobile-menu-footer a.btn-whatsapp::before {
+    content: '' !important;
+    display: block !important;
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    position: relative !important;
+    top: 0 !important;
+    vertical-align: middle !important;
+    align-self: center !important;
+  }
+}
