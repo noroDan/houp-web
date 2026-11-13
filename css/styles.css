@@ -4839,3 +4839,56 @@ select:focus-visible,
     transform: scale(0.78);
   }
 }
+
+/* ============================================================
+   V14 · BADGE "NUEVO" + featured card del blog
+   ============================================================ */
+
+.blog-card-featured {
+  position: relative;
+  border: 2px solid var(--cyan);
+  box-shadow: 0 25px 60px -20px rgba(2,193,244,0.3);
+}
+
+.blog-card-featured:hover {
+  box-shadow: 0 30px 70px -15px rgba(2,193,244,0.45);
+}
+
+.blog-badge-new {
+  position: absolute;
+  top: -12px;
+  right: 1.5rem;
+  background: var(--cyan);
+  color: var(--negro);
+  font-family: var(--font-titulo);
+  font-weight: 800;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.875rem;
+  border-radius: 999px;
+  z-index: 3;
+  box-shadow: 0 10px 25px -8px rgba(2,193,244,0.6);
+  animation: blog-badge-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes blog-badge-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -8px rgba(2,193,244,0.6); }
+  50% { transform: scale(1.06); box-shadow: 0 12px 30px -6px rgba(2,193,244,0.85); }
+}
+
+/* Mejora visual del time en tarjetas blog */
+.blog-card-body time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  background: rgba(2,193,244,0.08);
+  border-radius: 999px;
+  color: var(--cyan-oscuro);
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
