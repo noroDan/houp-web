@@ -1,7 +1,6 @@
 # HOUP — robots.txt
 User-agent: *
 Allow: /
-Disallow: /img/favicon/
 Disallow: /404.html
 
 # AI crawlers — bienvenidos
