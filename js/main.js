@@ -455,6 +455,22 @@
       }, 220);
     }
 
+    // Inyectar imagen embebida dentro de cada panel (solo se muestra en mobile vía CSS)
+    items.forEach((item) => {
+      const src = item.getAttribute('data-image');
+      const alt = item.getAttribute('data-image-alt') || '';
+      const content = item.querySelector('.cs-accordion-content');
+      if (!src || !content || content.querySelector('.cs-panel-img')) return;
+      const figure = document.createElement('div');
+      figure.className = 'cs-panel-img';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = alt;
+      img.loading = 'lazy';
+      figure.appendChild(img);
+      content.appendChild(figure);
+    });
+
     // Abrir el primero por default
     items[0].classList.add('open');
     syncImage(items[0]);

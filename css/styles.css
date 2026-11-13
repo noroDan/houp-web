@@ -5680,3 +5680,42 @@ select:focus-visible,
     vertical-align: middle !important;
   }
 }
+
+/* V23 · Foto DENTRO del panel expandido en mobile (en lugar de arriba) */
+
+/* Por defecto (desktop) oculto la foto embebida — ya está la sticky lateral */
+.cs-panel-img {
+  display: none;
+}
+
+.cs-panel-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 860px) {
+  /* Oculto la imagen aside en mobile */
+  .cs-image-pane {
+    display: none !important;
+  }
+
+  /* Muestro la imagen embebida DENTRO del panel expandido */
+  .cs-panel-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-top: 1.25rem;
+    margin-bottom: 0.25rem;
+    box-shadow: 0 15px 40px -10px rgba(0,0,0,0.4);
+  }
+
+  /* Grid del content back to 1 columna — ya estaba, pero reforzamos */
+  .cs-accordion-content {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+}
