@@ -64,7 +64,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css?v=v18">
+  <link rel="stylesheet" href="css/styles.css?v=v19">
   
   <script type="application/ld+json">
   {
@@ -212,10 +212,10 @@
         </div>
       </section>
 
-      <!-- LAS 4 C's — Título fuera, acordeón+imagen dentro -->
-      <section class="cs-section">
-        <div class="container">
-          <div class="section-header reveal" style="max-width:40rem;">
+      <!-- LAS 4 C's — Tarjeta negra, acordeón + imagen aside -->
+      <div class="card-section">
+        <section class="card-editorial with-glow">
+          <div class="section-header reveal">
             <p class="tag-seccion">Nuestra metodología</p>
             <h2>Las <em>4 C's.</em></h2>
             <p>El equipo es una casa. La cultura, sus cimientos.</p>
@@ -226,7 +226,7 @@
               <img class="cs-image-current" src="img/fotos/empresas-hammond-cola-caballo-reflexion.webp" alt="Confianza — momento de reflexión individual en retiro empresarial">
             </aside>
 
-          <div class="cs-accordion cs-accordion--flat">
+          <div class="cs-accordion cs-accordion--flat cs-accordion--dark">
             <div class="cs-accordion-item"
                  data-image="img/fotos/empresas-hammond-cola-caballo-reflexion.webp"
                  data-image-alt="Confianza — momento de reflexión individual en retiro empresarial">
@@ -300,8 +300,8 @@
             </div>
           </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <!-- SERVICIOS — Tarjeta negra -->
       <div class="card-section">
@@ -311,98 +311,156 @@
             <h2>Seis formas de <em>intervenir.</em></h2>
           </div>
 
-          <div class="servicios-wow">
+          <div class="cs-layout reveal">
+            <aside class="cs-image-pane">
+              <img class="cs-image-current" src="img/fotos/empresas-hotel-organico-andrea-facilitando.webp" alt="Programa insignia — Andrea facilitando sesión HOUP Empresas">
+            </aside>
 
-            <article class="servicio-wow highlight reveal" data-hover-glow>
-              <span class="servicio-wow-num">01</span>
-              <h3>Desarrollo de equipos de alto rendimiento</h3>
-              <p>Programa anual de 5 sesiones con las 4 C's. El proceso insignia para equipos que quieren confiar más, alinearse mejor y ejecutar sin fricciones.</p>
-              <span class="servicio-wow-arrow">Programa insignia <span class="arrow">→</span></span>
-                          <div class="servicio-wow-expand">
-                <ul>
-                  <li>Programa anual de 5 sesiones presenciales</li>
-                  <li>Trabajo sobre las 4 C's: Confianza · Conflicto · Compromiso · Cuentas</li>
-                  <li>Diagnóstico antes · marcador durante · medición al cierre</li>
-                  <li>Para equipos de liderazgo o áreas clave</li>
-                </ul>
+            <div class="cs-accordion cs-accordion--flat cs-accordion--dark">
+              <div class="cs-accordion-item"
+                   data-image="img/fotos/empresas-hotel-organico-andrea-facilitando.webp"
+                   data-image-alt="Desarrollo de equipos — Andrea facilitando con logo HOUP">
+                <button type="button" class="cs-accordion-trigger" aria-expanded="true">
+                  <span class="cs-num-label">01</span>
+                  <span class="cs-title-text">Desarrollo de equipos de alto rendimiento</span>
+                  <span class="cs-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div class="cs-accordion-panel">
+                  <div class="cs-accordion-content">
+                    <div class="cs-accordion-text">
+                      <p>Programa anual de 5 sesiones con las 4 C's. El proceso insignia para equipos que quieren confiar más, alinearse mejor y ejecutar sin fricciones.</p>
+                      <ul class="cs-bullets">
+                        <li>Programa anual de 5 sesiones presenciales</li>
+                        <li>Trabajo sobre las 4 C's: Confianza · Conflicto · Compromiso · Cuentas</li>
+                        <li>Diagnóstico antes · marcador durante · medición al cierre</li>
+                        <li>Para equipos de liderazgo o áreas clave</li>
+                      </ul>
+                      <span class="cs-accordion-produce">Programa insignia</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </article>
 
-            <article class="servicio-wow reveal reveal-delay-1" data-hover-glow>
-              <span class="servicio-wow-num">02</span>
-              <h3>Planeación Táctica</h3>
-              <p>Un día para que el equipo salga con un objetivo claro, un marcador y una junta semanal instalada.</p>
-              <span class="servicio-wow-arrow">Un día · Alto impacto <span class="arrow">→</span></span>
-                          <div class="servicio-wow-expand">
-                <ul>
-                  <li>Un día enfocado al equipo directivo</li>
-                  <li>Sale con un objetivo priorizado y un marcador</li>
-                  <li>Junta semanal instalada con agenda clara</li>
-                  <li>Seguimiento opcional por trimestre</li>
-                </ul>
+              <div class="cs-accordion-item"
+                   data-image="img/fotos/empresas-larmex-ejecutivos-conversacion.webp"
+                   data-image-alt="Planeación táctica — equipo directivo alineando objetivos">
+                <button type="button" class="cs-accordion-trigger" aria-expanded="false">
+                  <span class="cs-num-label">02</span>
+                  <span class="cs-title-text">Planeación Táctica</span>
+                  <span class="cs-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div class="cs-accordion-panel">
+                  <div class="cs-accordion-content">
+                    <div class="cs-accordion-text">
+                      <p>Un día para que el equipo salga con un objetivo claro, un marcador y una junta semanal instalada.</p>
+                      <ul class="cs-bullets">
+                        <li>Un día enfocado al equipo directivo</li>
+                        <li>Sale con un objetivo priorizado y un marcador</li>
+                        <li>Junta semanal instalada con agenda clara</li>
+                        <li>Seguimiento opcional por trimestre</li>
+                      </ul>
+                      <span class="cs-accordion-produce">Un día · Alto impacto</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </article>
 
-            <article class="servicio-wow reveal reveal-delay-2" data-hover-glow>
-              <span class="servicio-wow-num">03</span>
-              <h3>Cultura organizacional</h3>
-              <p>Proceso de 5 etapas para nombrar y vivir la cultura.</p>
-              <span class="servicio-wow-arrow">Proceso · 5 etapas <span class="arrow">→</span></span>
-                          <div class="servicio-wow-expand">
-                <ul>
-                  <li>Proceso de 5 etapas: nombrar, vivir, medir, corregir, celebrar</li>
-                  <li>Involucra a todos los niveles</li>
-                  <li>Manual de cultura entregado al final</li>
-                  <li>Ritmos de comunicación interna instalados</li>
-                </ul>
+              <div class="cs-accordion-item"
+                   data-image="img/fotos/empresas-hammond-cola-caballo-sonrisa.webp"
+                   data-image-alt="Cultura organizacional — colaboradora Hammond en retiro de cultura">
+                <button type="button" class="cs-accordion-trigger" aria-expanded="false">
+                  <span class="cs-num-label">03</span>
+                  <span class="cs-title-text">Cultura organizacional</span>
+                  <span class="cs-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div class="cs-accordion-panel">
+                  <div class="cs-accordion-content">
+                    <div class="cs-accordion-text">
+                      <p>Proceso de 5 etapas para nombrar y vivir la cultura.</p>
+                      <ul class="cs-bullets">
+                        <li>Proceso de 5 etapas: nombrar, vivir, medir, corregir, celebrar</li>
+                        <li>Involucra a todos los niveles</li>
+                        <li>Manual de cultura entregado al final</li>
+                        <li>Ritmos de comunicación interna instalados</li>
+                      </ul>
+                      <span class="cs-accordion-produce">Proceso · 5 etapas</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </article>
 
-            <article class="servicio-wow reveal" data-hover-glow>
-              <span class="servicio-wow-num">04</span>
-              <h3>Intervenciones puntuales</h3>
-              <p>Diagnóstico breve, una sesión enfocada y cierre con acuerdos para equipos en transición.</p>
-              <span class="servicio-wow-arrow">Enfoque quirúrgico <span class="arrow">→</span></span>
-                          <div class="servicio-wow-expand">
-                <ul>
-                  <li>Diagnóstico breve con el equipo (1-2 horas)</li>
-                  <li>Una sesión enfocada al tema concreto</li>
-                  <li>Cierre con acuerdos firmados</li>
-                  <li>Ideal para equipos en transición o conflicto</li>
-                </ul>
+              <div class="cs-accordion-item"
+                   data-image="img/fotos/empresas-hammond-cola-caballo-reflexion.webp"
+                   data-image-alt="Intervención puntual — momento de reflexión individual">
+                <button type="button" class="cs-accordion-trigger" aria-expanded="false">
+                  <span class="cs-num-label">04</span>
+                  <span class="cs-title-text">Intervenciones puntuales</span>
+                  <span class="cs-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div class="cs-accordion-panel">
+                  <div class="cs-accordion-content">
+                    <div class="cs-accordion-text">
+                      <p>Diagnóstico breve, una sesión enfocada y cierre con acuerdos para equipos en transición.</p>
+                      <ul class="cs-bullets">
+                        <li>Diagnóstico breve con el equipo (1-2 horas)</li>
+                        <li>Una sesión enfocada al tema concreto</li>
+                        <li>Cierre con acuerdos firmados</li>
+                        <li>Ideal para equipos en transición o conflicto</li>
+                      </ul>
+                      <span class="cs-accordion-produce">Enfoque quirúrgico</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </article>
 
-            <article class="servicio-wow reveal reveal-delay-1" data-hover-glow>
-              <span class="servicio-wow-num">05</span>
-              <h3>Team building con sentido</h3>
-              <p>Experiencias vivenciales con aprendizaje real, para aniversarios, off-sites y fin de año.</p>
-              <span class="servicio-wow-arrow">Experiencias <span class="arrow">→</span></span>
-                          <div class="servicio-wow-expand">
-                <ul>
-                  <li>Experiencia vivencial con aprendizaje real</li>
-                  <li>Para aniversarios, off-sites y cierre de año</li>
-                  <li>Sede propia o la que elija el cliente</li>
-                  <li>No es dinámica por dinámica: cada actividad tiene propósito</li>
-                </ul>
+              <div class="cs-accordion-item"
+                   data-image="img/fotos/empresas-hotel-organico-team-building.webp"
+                   data-image-alt="Team building — equipo en reto físico grupal">
+                <button type="button" class="cs-accordion-trigger" aria-expanded="false">
+                  <span class="cs-num-label">05</span>
+                  <span class="cs-title-text">Team building con sentido</span>
+                  <span class="cs-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div class="cs-accordion-panel">
+                  <div class="cs-accordion-content">
+                    <div class="cs-accordion-text">
+                      <p>Experiencias vivenciales con aprendizaje real, para aniversarios, off-sites y fin de año.</p>
+                      <ul class="cs-bullets">
+                        <li>Experiencia vivencial con aprendizaje real</li>
+                        <li>Para aniversarios, off-sites y cierre de año</li>
+                        <li>Sede propia o la que elija el cliente</li>
+                        <li>No es dinámica por dinámica: cada actividad tiene propósito</li>
+                      </ul>
+                      <span class="cs-accordion-produce">Experiencias</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </article>
 
-            <article class="servicio-wow reveal reveal-delay-2" data-hover-glow>
-              <span class="servicio-wow-num">06</span>
-              <h3>HOUP Event Management</h3>
-              <p>Sede, logística y contenido en una sola propuesta.</p>
-              <span class="servicio-wow-arrow">Llave en mano <span class="arrow">→</span></span>
-                          <div class="servicio-wow-expand">
-                <ul>
-                  <li>Sede HOUP en Monterrey (disponible)</li>
-                  <li>Logística completa: comida, hospedaje, transporte</li>
-                  <li>Contenido y facilitación por nuestro equipo</li>
-                  <li>Una sola propuesta, un solo proveedor</li>
-                </ul>
+              <div class="cs-accordion-item"
+                   data-image="img/fotos/empresas-larmex-dinamica-conos.webp"
+                   data-image-alt="HOUP Event Management — dinámica integral de equipo">
+                <button type="button" class="cs-accordion-trigger" aria-expanded="false">
+                  <span class="cs-num-label">06</span>
+                  <span class="cs-title-text">HOUP Event Management</span>
+                  <span class="cs-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div class="cs-accordion-panel">
+                  <div class="cs-accordion-content">
+                    <div class="cs-accordion-text">
+                      <p>Sede, logística y contenido en una sola propuesta.</p>
+                      <ul class="cs-bullets">
+                        <li>Sede HOUP en Monterrey (disponible)</li>
+                        <li>Logística completa: comida, hospedaje, transporte</li>
+                        <li>Contenido y facilitación por nuestro equipo</li>
+                        <li>Una sola propuesta, un solo proveedor</li>
+                      </ul>
+                      <span class="cs-accordion-produce">Llave en mano</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </article>
-
+            </div>
           </div>
         </section>
       </div>
@@ -587,6 +645,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=v18"></script>
+  <script src="js/main.js?v=v19"></script>
 </body>
 </html>

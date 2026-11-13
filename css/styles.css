@@ -5344,3 +5344,114 @@ select:focus-visible,
     aspect-ratio: 16 / 10;
   }
 }
+
+/* ============================================================
+   V18 · 4 C's acordeón flat DENTRO de tarjeta negra (variante dark)
+   ============================================================ */
+
+/* Layout dentro de card-editorial (tarjeta negra con glow cyan) */
+.card-editorial .cs-layout {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.card-editorial .cs-image-pane {
+  box-shadow: 0 30px 70px -15px rgba(0,0,0,0.6), 0 0 60px rgba(2,193,244,0.15);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Variante DARK del acordeón flat (sobre tarjeta negra) */
+.cs-accordion--dark {
+  background: transparent !important;
+  border: none !important;
+}
+
+.cs-accordion--dark .cs-accordion-item {
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.cs-accordion--dark .cs-accordion-item:first-child {
+  border-top: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.cs-accordion--dark .cs-accordion-trigger {
+  color: var(--blanco) !important;
+  background: transparent !important;
+}
+
+.cs-accordion--dark .cs-accordion-trigger:hover {
+  background: transparent !important;
+}
+
+.cs-accordion--dark .cs-accordion-trigger .cs-num-label {
+  color: rgba(255,255,255,0.4);
+}
+
+.cs-accordion--dark .cs-accordion-item.open .cs-accordion-trigger .cs-num-label {
+  color: var(--cyan);
+}
+
+.cs-accordion--dark .cs-accordion-trigger .cs-title-text {
+  color: var(--blanco);
+}
+
+.cs-accordion--dark .cs-accordion-trigger:hover .cs-title-text {
+  color: var(--cyan);
+}
+
+.cs-accordion--dark .cs-accordion-item.open .cs-accordion-trigger .cs-title-text {
+  color: var(--cyan);
+}
+
+.cs-accordion--dark .cs-accordion-trigger .cs-chevron {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+  color: var(--blanco);
+}
+
+.cs-accordion--dark .cs-accordion-item.open .cs-accordion-trigger .cs-chevron {
+  background: var(--cyan);
+  color: var(--negro);
+  border-color: var(--cyan);
+}
+
+.cs-accordion--dark .cs-accordion-text p {
+  color: rgba(255,255,255,0.78);
+}
+
+.cs-accordion--dark .cs-accordion-produce {
+  background: rgba(2,193,244,0.12);
+  color: var(--cyan);
+  border-color: rgba(2,193,244,0.35);
+}
+
+/* Bullets dentro del acordeón */
+.cs-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cs-bullets li {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.72);
+}
+
+.cs-bullets li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+/* En variante clara (card-light) los bullets también funcionan */
+.cs-accordion:not(.cs-accordion--dark) .cs-bullets li {
+  color: var(--gris);
+}
