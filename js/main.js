@@ -459,21 +459,27 @@
     items[0].classList.add('open');
     syncImage(items[0]);
 
-    items.forEach((item) => {
+    const itemsArr = Array.from(items);
+    itemsArr.forEach((item, index) => {
       const trigger = item.querySelector('.cs-accordion-trigger');
       if (!trigger) return;
       trigger.addEventListener('click', () => {
         const wasOpen = item.classList.contains('open');
-        items.forEach((i) => {
+
+        // Cerrar todos
+        itemsArr.forEach((i) => {
           i.classList.remove('open');
           const t = i.querySelector('.cs-accordion-trigger');
           if (t) t.setAttribute('aria-expanded', 'false');
         });
-        if (!wasOpen) {
-          item.classList.add('open');
-          trigger.setAttribute('aria-expanded', 'true');
-          syncImage(item);
-        }
+
+        // Si se clickeó una ya abierta → abrir la siguiente (circular)
+        // Si se clickeó una cerrada → abrir esa
+        const toOpen = wasOpen ? itemsArr[(index + 1) % itemsArr.length] : item;
+        toOpen.classList.add('open');
+        const openTrigger = toOpen.querySelector('.cs-accordion-trigger');
+        if (openTrigger) openTrigger.setAttribute('aria-expanded', 'true');
+        syncImage(toOpen);
       });
     });
   });

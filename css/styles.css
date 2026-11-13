@@ -5455,3 +5455,67 @@ select:focus-visible,
 .cs-accordion:not(.cs-accordion--dark) .cs-bullets li {
   color: var(--gris);
 }
+
+/* ============================================================
+   V19 · Chevron estilo Apple: sin círculo, grueso, color gris
+   ============================================================ */
+
+/* Reset: quitar círculo/fondo/borde que tenía el chevron */
+.cs-accordion .cs-chevron,
+.cs-accordion--flat .cs-accordion-trigger .cs-chevron,
+.cs-accordion--dark .cs-accordion-trigger .cs-chevron,
+.cs-accordion--flat .cs-accordion-item.open .cs-accordion-trigger .cs-chevron,
+.cs-accordion--dark .cs-accordion-item.open .cs-accordion-trigger .cs-chevron {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 44px !important;
+  height: 44px !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  position: relative;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Chevron SVG via mask → color controlable por background-color */
+.cs-accordion .cs-chevron::before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-color: var(--gris);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  transition: transform 450ms var(--ease), background-color 300ms var(--ease);
+}
+
+/* Variante clara (sobre fondo claro): gris medio */
+.cs-accordion--flat:not(.cs-accordion--dark) .cs-chevron::before {
+  background-color: #6b6b6b;
+}
+
+.cs-accordion--flat:not(.cs-accordion--dark) .cs-accordion-trigger:hover .cs-chevron::before {
+  background-color: var(--negro);
+}
+
+/* Variante dark (sobre tarjeta negra): gris claro suave */
+.cs-accordion--dark .cs-chevron::before {
+  background-color: rgba(255,255,255,0.5);
+}
+
+.cs-accordion--dark .cs-accordion-trigger:hover .cs-chevron::before {
+  background-color: var(--blanco);
+}
+
+/* Abierto → cyan en ambos */
+.cs-accordion-item.open .cs-chevron::before {
+  background-color: var(--cyan) !important;
+  transform: rotate(180deg);
+}
