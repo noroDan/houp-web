@@ -480,6 +480,22 @@
         const openTrigger = toOpen.querySelector('.cs-accordion-trigger');
         if (openTrigger) openTrigger.setAttribute('aria-expanded', 'true');
         syncImage(toOpen);
+
+        // Scroll suave para que el item quede visible junto a la imagen aside
+        // (solo en desktop; en mobile ya están en stack)
+        if (window.innerWidth > 860) {
+          setTimeout(() => {
+            const rect = toOpen.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const itemHeight = rect.height;
+            // Target: 1/3 del viewport desde arriba, para que la imagen y el texto queden juntos visibles
+            const targetTop = viewportHeight * 0.18;
+            if (rect.top < targetTop - 20 || rect.top > targetTop + 60) {
+              const scrollBy = rect.top - targetTop;
+              window.scrollBy({ top: scrollBy, behavior: 'smooth' });
+            }
+          }, 100);
+        }
       });
     });
   });

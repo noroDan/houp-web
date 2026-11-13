@@ -5519,3 +5519,110 @@ select:focus-visible,
   background-color: var(--cyan) !important;
   transform: rotate(180deg);
 }
+
+/* ============================================================
+   V20 · FIXES: btn-donar mobile + blog mobile padding + sticky foto
+   ============================================================ */
+
+/* 1) BTN DONAR en menú hamburguesa móvil: pill centrado, no link grande */
+@media (max-width: 860px) {
+  .header-nav.is-open .nav-items .btn-donar-header {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: center !important;
+    margin: 2rem auto 0 !important;
+    width: fit-content !important;
+    max-width: 85% !important;
+    padding: 1rem 2.5rem !important;
+    font-size: 0.9375rem !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    background: var(--cyan) !important;
+    color: var(--negro) !important;
+    border-bottom: none !important;
+    border-radius: 999px !important;
+    box-shadow: 0 10px 30px -8px rgba(2,193,244,0.5) !important;
+    gap: 0 !important;
+    line-height: 1 !important;
+    opacity: 0;
+    transform: translateY(1rem);
+    animation: menu-item-in-up 600ms var(--ease) 440ms forwards;
+  }
+}
+
+/* 2) BLOG MOBILE: padding lateral generoso en lectura */
+@media (max-width: 760px) {
+  .blog-body {
+    padding: clamp(2rem, 6vw, 3rem) 0;
+  }
+  .blog-container {
+    padding: 0 1.5rem;
+    max-width: 100%;
+  }
+  .blog-body h2 { font-size: 1.5rem !important; }
+  .blog-body h3 { font-size: 1.125rem !important; }
+  .blog-body p,
+  .blog-body ul li,
+  .blog-body ol li { font-size: 1rem !important; line-height: 1.65 !important; }
+  .blog-lead { font-size: 1.0625rem !important; padding: 0 !important; }
+  .blog-cta-inline { padding: 1.25rem 1.25rem; font-size: 1rem !important; }
+
+  /* Hero del blog post: respirar más en mobile */
+  .hero-blog {
+    min-height: 50vh !important;
+    padding-top: 7rem !important;
+    padding-bottom: 3rem !important;
+  }
+  .hero-blog .container {
+    padding: 0 1.5rem !important;
+  }
+  .hero-blog h1 {
+    font-size: clamp(1.625rem, 6vw, 2.25rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  /* Tarjetas del blog index: padding lateral */
+  .blog-grid {
+    padding: 0 0.5rem;
+  }
+  .blog-card-body { padding: 1.5rem 1.25rem 1.75rem; }
+
+  /* Related posts + autor bio */
+  .blog-related { grid-template-columns: 1fr !important; }
+  .blog-related-card { padding: 1rem 1.25rem; }
+}
+
+@media (max-width: 460px) {
+  .blog-container { padding: 0 1.25rem; }
+  .hero-blog .container { padding: 0 1.25rem !important; }
+  .blog-body p,
+  .blog-body ul li,
+  .blog-body ol li { font-size: 0.9375rem !important; }
+}
+
+/* 3) STICKY FOTO en 4C's / Servicios: dejar overflow visible y centrar
+      el item al clickear para que texto + imagen se vean juntos */
+.card-editorial:has(.cs-layout) {
+  overflow: visible;
+}
+
+/* Fallback para browsers sin :has — añadir clase manual si fuera necesario */
+.card-editorial.card-has-layout {
+  overflow: visible;
+}
+
+/* Asegurar que el sticky tenga room suficiente (altura máxima prudente) */
+.cs-image-pane {
+  max-height: calc(100vh - 8rem);
+}
+
+/* En mobile el sticky no tiene sentido (ya está en stack) */
+@media (max-width: 860px) {
+  .cs-image-pane {
+    position: static !important;
+    max-height: none;
+    aspect-ratio: 16 / 10;
+  }
+}
