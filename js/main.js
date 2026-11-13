@@ -424,15 +424,44 @@
 (function initCsAccordion() {
   const items = document.querySelectorAll('.cs-accordion-item');
   if (!items.length) return;
+
   // Abrir el primero por default
   items[0].classList.add('open');
+
+  // Imagen aside sincronizada (si existe el pane sticky)
+  const imgPane = document.querySelector('.cs-image-current');
+
+  function syncImage(item) {
+    if (!imgPane) return;
+    const src = item.getAttribute('data-image');
+    const alt = item.getAttribute('data-image-alt') || '';
+    if (!src || imgPane.getAttribute('src') === src) return;
+    imgPane.classList.add('cs-img-fading');
+    setTimeout(() => {
+      imgPane.setAttribute('src', src);
+      imgPane.setAttribute('alt', alt);
+      imgPane.classList.remove('cs-img-fading');
+    }, 220);
+  }
+
+  // Sincroniza al cargar con el abierto por default
+  syncImage(items[0]);
+
   items.forEach((item) => {
     const trigger = item.querySelector('.cs-accordion-trigger');
     if (!trigger) return;
     trigger.addEventListener('click', () => {
       const wasOpen = item.classList.contains('open');
-      items.forEach((i) => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
+      items.forEach((i) => {
+        i.classList.remove('open');
+        const t = i.querySelector('.cs-accordion-trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+        syncImage(item);
+      }
     });
   });
 })();

@@ -64,7 +64,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css?v=v17">
+  <link rel="stylesheet" href="css/styles.css?v=v18">
   
   <script type="application/ld+json">
   {
@@ -212,17 +212,24 @@
         </div>
       </section>
 
-      <!-- LAS 4 C's — Tarjeta negra -->
-      <div class="card-section">
-        <section class="card-editorial with-glow">
-          <div class="section-header reveal">
+      <!-- LAS 4 C's — Título fuera, acordeón+imagen dentro -->
+      <section class="cs-section">
+        <div class="container">
+          <div class="section-header reveal" style="max-width:40rem;">
             <p class="tag-seccion">Nuestra metodología</p>
             <h2>Las <em>4 C's.</em></h2>
             <p>El equipo es una casa. La cultura, sus cimientos.</p>
           </div>
 
-          <div class="cs-accordion reveal">
-            <div class="cs-accordion-item">
+          <div class="cs-layout reveal">
+            <aside class="cs-image-pane">
+              <img class="cs-image-current" src="img/fotos/empresas-hammond-cola-caballo-reflexion.webp" alt="Confianza — momento de reflexión individual en retiro empresarial">
+            </aside>
+
+          <div class="cs-accordion cs-accordion--flat">
+            <div class="cs-accordion-item"
+                 data-image="img/fotos/empresas-hammond-cola-caballo-reflexion.webp"
+                 data-image-alt="Confianza — momento de reflexión individual en retiro empresarial">
               <button type="button" class="cs-accordion-trigger" aria-expanded="true">
                 <span class="cs-num-label">01</span>
                 <span class="cs-title-text">Confianza</span>
@@ -234,14 +241,13 @@
                     <p>Relaciones positivas, colaborativas y auténticas. La piedra angular de un equipo trascendental: sin ella no hay conversación honesta, no hay feedback útil, no hay riesgo compartido.</p>
                     <span class="cs-accordion-produce">Produce: Adueñamiento</span>
                   </div>
-                  <div class="cs-accordion-image">
-                    <img src="img/fotos/empresas-hammond-cola-caballo-reflexion.webp" alt="Momento de reflexión individual en retiro empresarial" loading="lazy">
-                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="cs-accordion-item">
+            <div class="cs-accordion-item"
+                 data-image="img/fotos/empresas-larmex-ejecutivos-conversacion.webp"
+                 data-image-alt="Claridad — ejecutivos de Larmex alineando objetivos con HOUP">
               <button type="button" class="cs-accordion-trigger" aria-expanded="false">
                 <span class="cs-num-label">02</span>
                 <span class="cs-title-text">Claridad</span>
@@ -253,14 +259,13 @@
                     <p>Objetivos, expectativas y roles alineados alrededor de lo más importante. Un equipo no se mueve en conjunto si no sabe exactamente hacia dónde va y qué le toca a cada uno.</p>
                     <span class="cs-accordion-produce">Produce: Motivación</span>
                   </div>
-                  <div class="cs-accordion-image">
-                    <img src="img/fotos/empresas-larmex-ejecutivos-conversacion.webp" alt="Ejecutivos de Larmex conversando con HOUP" loading="lazy">
-                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="cs-accordion-item">
+            <div class="cs-accordion-item"
+                 data-image="img/fotos/empresas-larmex-dinamica-conos.webp"
+                 data-image-alt="Confrontación — dinámica de equipo que confronta la realidad grupal">
               <button type="button" class="cs-accordion-trigger" aria-expanded="false">
                 <span class="cs-num-label">03</span>
                 <span class="cs-title-text">Confrontación</span>
@@ -272,14 +277,13 @@
                     <p>Conversaciones difíciles con respeto y vulnerabilidad, para aprender en equipo. No es agresión: es la capacidad de nombrar lo que incomoda sin romper el vínculo.</p>
                     <span class="cs-accordion-produce">Produce: Avance</span>
                   </div>
-                  <div class="cs-accordion-image">
-                    <img src="img/fotos/empresas-larmex-dinamica-conos.webp" alt="Dinámica de equipo con conos en espacio compartido" loading="lazy">
-                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="cs-accordion-item">
+            <div class="cs-accordion-item"
+                 data-image="img/fotos/empresas-hotel-organico-team-building.webp"
+                 data-image-alt="Culminación — equipo ejecutando un reto físico en grupo">
               <button type="button" class="cs-accordion-trigger" aria-expanded="false">
                 <span class="cs-num-label">04</span>
                 <span class="cs-title-text">Culminación</span>
@@ -291,15 +295,13 @@
                     <p>La disciplina de ejecutar: un objetivo claro, un marcador visible y una junta semanal que no se rompe. Sin ritmo de cierre, la mejor cultura del mundo se queda en intenciones.</p>
                     <span class="cs-accordion-produce">Produce: Resultados</span>
                   </div>
-                  <div class="cs-accordion-image">
-                    <img src="img/fotos/empresas-hotel-organico-team-building.webp" alt="Ejercicio de team building en Hotel Orgánico" loading="lazy">
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-      </div>
+          </div>
+        </div>
+      </section>
 
       <!-- SERVICIOS — Tarjeta negra -->
       <div class="card-section">
@@ -585,6 +587,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=v17"></script>
+  <script src="js/main.js?v=v18"></script>
 </body>
 </html>
