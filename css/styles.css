@@ -4892,3 +4892,320 @@ select:focus-visible,
   letter-spacing: 0.04em;
   text-transform: none;
 }
+
+/* ============================================================
+   V16 · Visual-stack con 3 fotos + lightbox carrusel + 4 C's acordeón
+   ============================================================ */
+
+/* Visual stack: 3ra foto en variante A (top-right pequeña) */
+.visual-stack-a .visual-stack-foto:nth-child(3) {
+  top: 0;
+  right: 5%;
+  width: 32%;
+  height: 32%;
+  border: 5px solid var(--fondo-blanco-roto);
+  z-index: 3;
+}
+
+/* Visual stack: 3ra foto en variante B (bottom-right pequeña) */
+.visual-stack-b .visual-stack-foto:nth-child(3) {
+  bottom: 8%;
+  right: 55%;
+  width: 32%;
+  height: 32%;
+  border: 5px solid var(--fondo-blanco-roto);
+  z-index: 3;
+}
+
+/* Hover y click para fotos del stack */
+.visual-stack-foto {
+  cursor: zoom-in;
+  transition: transform 500ms var(--ease), box-shadow 500ms var(--ease);
+}
+
+.visual-stack-foto:hover {
+  transform: scale(1.03);
+  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.35);
+  z-index: 5;
+}
+
+/* Indicador "ver más fotos" */
+.visual-stack::after {
+  content: "⊕ Ver galería";
+  position: absolute;
+  top: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gris);
+  opacity: 0;
+  transition: opacity 400ms var(--ease);
+  pointer-events: none;
+}
+
+.visual-stack:hover::after { opacity: 1; }
+
+/* ========== LIGHTBOX CARRUSEL ========== */
+.hp-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(14,14,14,0.96);
+  backdrop-filter: blur(20px);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 300ms var(--ease);
+}
+
+.hp-lightbox.active {
+  display: flex;
+  opacity: 1;
+}
+
+.hp-lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--blanco);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 300ms var(--ease);
+}
+
+.hp-lightbox-close:hover {
+  background: var(--cyan);
+  color: var(--negro);
+  transform: rotate(90deg);
+}
+
+.hp-lightbox-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hp-lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 12px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+  object-fit: contain;
+}
+
+.hp-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--blanco);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 300ms var(--ease);
+  z-index: 10;
+}
+
+.hp-lightbox-nav:hover {
+  background: var(--cyan);
+  color: var(--negro);
+}
+
+.hp-lightbox-prev { left: 2rem; }
+.hp-lightbox-next { right: 2rem; }
+
+.hp-lightbox-counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: rgba(14,14,14,0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+@media (max-width: 600px) {
+  .hp-lightbox-nav { width: 44px; height: 44px; font-size: 1.25rem; }
+  .hp-lightbox-prev { left: 0.5rem; }
+  .hp-lightbox-next { right: 0.5rem; }
+  .hp-lightbox-close { top: 1rem; right: 1rem; width: 40px; height: 40px; }
+}
+
+/* ========== 4 C's ACORDEÓN ========== */
+.cs-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(255,255,255,0.03);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.cs-accordion-item {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.cs-accordion-item:last-child { border-bottom: none; }
+
+.cs-accordion-trigger {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  color: var(--blanco);
+  font-family: var(--font-titulo);
+  transition: all 300ms var(--ease);
+}
+
+.cs-accordion-trigger:hover {
+  background: rgba(2,193,244,0.05);
+}
+
+.cs-accordion-trigger .cs-num-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  flex-shrink: 0;
+  width: 2.5rem;
+}
+
+.cs-accordion-trigger .cs-title-text {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  flex: 1;
+  color: var(--blanco);
+}
+
+.cs-accordion-trigger .cs-chevron {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 400ms var(--ease);
+  flex-shrink: 0;
+  color: var(--blanco);
+}
+
+.cs-accordion-item.open .cs-accordion-trigger .cs-chevron {
+  background: var(--cyan);
+  color: var(--negro);
+  border-color: var(--cyan);
+  transform: rotate(180deg);
+}
+
+.cs-accordion-item.open .cs-accordion-trigger {
+  background: rgba(2,193,244,0.06);
+}
+
+.cs-accordion-item.open .cs-accordion-trigger .cs-title-text {
+  color: var(--cyan);
+}
+
+.cs-accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 600ms var(--ease);
+}
+
+.cs-accordion-item.open .cs-accordion-panel {
+  max-height: 800px;
+}
+
+.cs-accordion-content {
+  padding: 0 2rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.cs-accordion-text {
+  color: rgba(255,255,255,0.8);
+}
+
+.cs-accordion-text p {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  margin: 0 0 1rem;
+}
+
+.cs-accordion-produce {
+  display: inline-block;
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  padding: 0.5rem 0.875rem;
+  border: 1px solid rgba(2,193,244,0.3);
+  border-radius: 999px;
+  background: rgba(2,193,244,0.08);
+}
+
+.cs-accordion-image {
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.05);
+}
+
+.cs-accordion-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 760px) {
+  .cs-accordion-trigger { padding: 1.5rem 1.25rem; gap: 1rem; }
+  .cs-accordion-trigger .cs-num-label { width: auto; }
+  .cs-accordion-content {
+    grid-template-columns: 1fr;
+    padding: 0 1.25rem 1.5rem;
+    gap: 1.25rem;
+  }
+}

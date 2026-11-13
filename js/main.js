@@ -325,3 +325,114 @@
   });
 
 })();
+
+/* ============================================================
+   V16 · LIGHTBOX CARRUSEL para .visual-stack
+   ============================================================ */
+(function initLightbox() {
+  const stacks = document.querySelectorAll('.visual-stack');
+  if (!stacks.length) return;
+
+  // Crear overlay (una sola vez)
+  if (!document.querySelector('.hp-lightbox')) {
+    const lb = document.createElement('div');
+    lb.className = 'hp-lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Galería de fotos');
+    lb.innerHTML = `
+      <button class="hp-lightbox-close" aria-label="Cerrar galería">✕</button>
+      <button class="hp-lightbox-nav hp-lightbox-prev" aria-label="Foto anterior">‹</button>
+      <div class="hp-lightbox-content">
+        <img class="hp-lightbox-img" src="" alt="">
+      </div>
+      <button class="hp-lightbox-nav hp-lightbox-next" aria-label="Foto siguiente">›</button>
+      <div class="hp-lightbox-counter"><span class="hp-lb-current">1</span> / <span class="hp-lb-total">1</span></div>
+    `;
+    document.body.appendChild(lb);
+  }
+
+  const overlay = document.querySelector('.hp-lightbox');
+  const img = overlay.querySelector('.hp-lightbox-img');
+  const current = overlay.querySelector('.hp-lb-current');
+  const total = overlay.querySelector('.hp-lb-total');
+  const btnClose = overlay.querySelector('.hp-lightbox-close');
+  const btnPrev = overlay.querySelector('.hp-lightbox-prev');
+  const btnNext = overlay.querySelector('.hp-lightbox-next');
+
+  let gallery = [];
+  let idx = 0;
+
+  function open(fotos, startIdx) {
+    gallery = fotos;
+    idx = startIdx;
+    render();
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function render() {
+    img.src = gallery[idx].src;
+    img.alt = gallery[idx].alt;
+    current.textContent = idx + 1;
+    total.textContent = gallery.length;
+  }
+  function prev() { idx = (idx - 1 + gallery.length) % gallery.length; render(); }
+  function next() { idx = (idx + 1) % gallery.length; render(); }
+
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click', prev);
+  btnNext.addEventListener('click', next);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('active')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') prev();
+    else if (e.key === 'ArrowRight') next();
+  });
+
+  stacks.forEach((stack) => {
+    const figures = stack.querySelectorAll('.visual-stack-foto');
+    // Leer galería extendida desde data-gallery si existe (fotos extra que no están en el stack)
+    let extraSrcs = [];
+    try {
+      const raw = stack.getAttribute('data-gallery');
+      if (raw) extraSrcs = JSON.parse(raw);
+    } catch (e) {}
+
+    figures.forEach((fig, i) => {
+      fig.addEventListener('click', () => {
+        const fotos = [];
+        figures.forEach((f) => {
+          const im = f.querySelector('img');
+          if (im) fotos.push({ src: im.src, alt: im.alt || '' });
+        });
+        extraSrcs.forEach((s) => fotos.push({ src: s.src || s, alt: s.alt || '' }));
+        open(fotos, i);
+      });
+    });
+  });
+})();
+
+/* ============================================================
+   V16 · 4 C's ACORDEÓN
+   ============================================================ */
+(function initCsAccordion() {
+  const items = document.querySelectorAll('.cs-accordion-item');
+  if (!items.length) return;
+  // Abrir el primero por default
+  items[0].classList.add('open');
+  items.forEach((item) => {
+    const trigger = item.querySelector('.cs-accordion-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      items.forEach((i) => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+})();
