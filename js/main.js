@@ -516,3 +516,129 @@
     });
   });
 })();
+
+/* ===========================================================================
+ * TRACKING DE CONVERSIONES — GA4 + Meta Pixel + LinkedIn Insight
+ * ---------------------------------------------------------------------------
+ * Eventos trackeados globalmente en todas las páginas:
+ *  - whatsapp_click  : cualquier link a wa.me/*
+ *  - email_click     : cualquier link mailto:*
+ *  - cta_rama_click  : clicks en botones hacia educacion/empresas/fundacion
+ *  - phone_click     : clicks en tel:+*
+ *  - newsletter_submit: submit del form MailerLite
+ *  - scroll_milestone: 25%, 50%, 75%, 100% de scroll (hook extra sobre enhanced measurement)
+ *
+ * Todos se duplican al Meta Pixel (fbq) cuando esté cargado.
+ * ========================================================================= */
+(function(){
+  'use strict';
+
+  // --- Helpers ---
+  function trackEvent(eventName, params) {
+    params = params || {};
+    params.page_path = window.location.pathname;
+    params.page_title = document.title;
+    // GA4
+    if (typeof window.gtag === 'function') {
+      try { window.gtag('event', eventName, params); } catch(e) {}
+    }
+    // Meta Pixel (si está cargado)
+    if (typeof window.fbq === 'function') {
+      // Mapeo a eventos estándar de Meta cuando aplica
+      var fbEvent = null;
+      if (eventName === 'whatsapp_click' || eventName === 'phone_click') fbEvent = 'Contact';
+      else if (eventName === 'newsletter_submit') fbEvent = 'Lead';
+      else if (eventName === 'email_click') fbEvent = 'Contact';
+      else if (eventName === 'cta_rama_click') fbEvent = 'ViewContent';
+      if (fbEvent) {
+        try { window.fbq('track', fbEvent, { content_name: params.rama || params.destino || eventName }); } catch(e) {}
+      }
+      try { window.fbq('trackCustom', eventName, params); } catch(e) {}
+    }
+    // LinkedIn Insight (si está cargado) — sólo para conversiones B2B importantes
+    if (typeof window.lintrk === 'function' && (eventName === 'whatsapp_click' || eventName === 'newsletter_submit')) {
+      try { window.lintrk('track', { conversion_id: params.linkedin_conversion_id || null }); } catch(e) {}
+    }
+  }
+
+  // --- 1. WhatsApp clicks ---
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href*="wa.me/"], a[href*="whatsapp.com"]');
+    if (!link) return;
+    var phone = link.getAttribute('data-wa-phone') || (link.href.match(/wa\.me\/(\d+)/) || [])[1] || '';
+    var text  = link.getAttribute('data-wa-text') || '';
+    trackEvent('whatsapp_click', {
+      phone: phone,
+      message_preview: text.substring(0, 50),
+      cta_location: link.className || 'inline'
+    });
+  });
+
+  // --- 2. Email clicks ---
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href^="mailto:"]');
+    if (!link) return;
+    var email = link.href.replace('mailto:', '').split('?')[0];
+    trackEvent('email_click', {
+      email_to: email,
+      cta_location: link.className || 'inline'
+    });
+  });
+
+  // --- 3. Teléfono clicks ---
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href^="tel:"]');
+    if (!link) return;
+    trackEvent('phone_click', {
+      phone: link.href.replace('tel:', ''),
+      cta_location: link.className || 'inline'
+    });
+  });
+
+  // --- 4. CTAs a páginas de rama (navegación interna estratégica) ---
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href$="educacion.html"], a[href$="empresas.html"], a[href$="fundacion.html"]');
+    if (!link) return;
+    var rama = (link.href.match(/(educacion|empresas|fundacion)\.html/) || [])[1];
+    trackEvent('cta_rama_click', {
+      rama: rama,
+      cta_location: link.className || 'inline',
+      from_page: window.location.pathname
+    });
+  });
+
+  // --- 5. Submit del form MailerLite ---
+  document.addEventListener('submit', function(e){
+    var form = e.target.closest('form.ml-block-form, form[action*="mailerlite"], .ml-form-embedBody form');
+    if (!form) return;
+    trackEvent('newsletter_submit', {
+      form_location: window.location.pathname
+    });
+  });
+
+  // --- 6. Scroll milestones (25/50/75/100) ---
+  (function(){
+    var marks = [25, 50, 75, 100];
+    var sent = {};
+    var throttle = null;
+    function check(){
+      var scrollTop = window.scrollY || window.pageYOffset;
+      var docHeight = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight,
+        1
+      );
+      var pct = Math.min(100, Math.round((scrollTop / docHeight) * 100));
+      marks.forEach(function(m){
+        if (pct >= m && !sent[m]) {
+          sent[m] = true;
+          trackEvent('scroll_milestone', { depth: m });
+        }
+      });
+    }
+    window.addEventListener('scroll', function(){
+      if (throttle) return;
+      throttle = setTimeout(function(){ throttle = null; check(); }, 500);
+    }, { passive: true });
+  })();
+
+})();
