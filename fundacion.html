@@ -59,9 +59,11 @@
   <link rel="dns-prefetch" href="https://wa.me">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap"></noscript>
 
-    <link rel="preload" as="image" href="img/fotos/fundacion-secundaria-publica-aula-septiembre.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="img/fotos/fundacion-secundaria-publica-aula-septiembre.webp" imagesrcset="img/fotos/fundacion-secundaria-publica-aula-septiembre-480w.webp 480w, img/fotos/fundacion-secundaria-publica-aula-septiembre-800w.webp 800w, img/fotos/fundacion-secundaria-publica-aula-septiembre.webp 1200w" imagesizes="(max-width: 860px) 100vw, 1200px" fetchpriority="high">
   <link rel="stylesheet" href="css/styles.css?v=v25">
   
   <script type="application/ld+json">
@@ -185,7 +187,7 @@
   <main>
 
     <section class="hero-mini">
-      <div class="hero-mini-image"><img src="img/fotos/fundacion-secundaria-publica-aula-septiembre.webp" fetchpriority="high" width="1600" height="1067" decoding="async" alt="Estudiantes de secundaria pública en sesión semanal del programa HOUP Fundación"></div>
+      <div class="hero-mini-image"><img src="img/fotos/fundacion-secundaria-publica-aula-septiembre.webp" srcset="img/fotos/fundacion-secundaria-publica-aula-septiembre-480w.webp 480w, img/fotos/fundacion-secundaria-publica-aula-septiembre-800w.webp 800w, img/fotos/fundacion-secundaria-publica-aula-septiembre.webp 1200w" sizes="(max-width: 860px) 100vw, 1200px" fetchpriority="high" width="1200" height="1600" decoding="async" alt="Estudiantes de secundaria pública en sesión semanal del programa HOUP Fundación"></div>
       <div class="hero-mini-content">
         <p class="hero-editorial-eyebrow">HOUP Fundación</p>
         <h1>Una clase de bienestar a la semana, <em class="word-rotator" data-words="para todos.|sin excepciones.|cada semana.|para florecer.">para todos.</em></h1>
@@ -696,10 +698,33 @@
       $('.ml-subscribe-form-48515667 .row-form').hide();
     }
   </script>
-  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
-    fetch("https://assets.mailerlite.com/jsonp/2793314/forms/204036901914544125/takel");
+    // Carga MailerLite + reCAPTCHA solo cuando el formulario esté a punto de ser visible.
+    (function(){
+      var form = document.querySelector('.ml-form-embedBody, .ml-subscribe-form, #mlb2-28513663, .ml-form-embedSubmitLoad');
+      if (!form) return;
+      var loaded = false;
+      function load(){
+        if (loaded) return; loaded = true;
+        var s = document.createElement('script');
+        s.src = 'https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519';
+        s.async = true;
+        document.body.appendChild(s);
+        var r = document.createElement('script');
+        r.src = 'https://www.google.com/recaptcha/api.js';
+        r.async = true; r.defer = true;
+        document.body.appendChild(r);
+        try { fetch('https://assets.mailerlite.com/jsonp/2793314/forms/204036901914544125/takel'); } catch(e){}
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){ if (e.isIntersecting) { load(); io.disconnect(); } });
+        }, { rootMargin: '400px' });
+        io.observe(form);
+      } else {
+        window.addEventListener('load', load);
+      }
+    })();
   </script>
 
   <footer class="site-footer">

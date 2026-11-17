@@ -59,7 +59,9 @@
   <link rel="dns-prefetch" href="https://wa.me">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap"></noscript>
 
   <link rel="stylesheet" href="css/styles.css?v=v25">
   
@@ -274,10 +276,33 @@
       $('.ml-subscribe-form-48515667 .row-form').hide();
     }
   </script>
-  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
-    fetch("https://assets.mailerlite.com/jsonp/2793314/forms/204036901914544125/takel");
+    // Carga MailerLite + reCAPTCHA solo cuando el formulario esté a punto de ser visible.
+    (function(){
+      var form = document.querySelector('.ml-form-embedBody, .ml-subscribe-form, #mlb2-28513663, .ml-form-embedSubmitLoad');
+      if (!form) return;
+      var loaded = false;
+      function load(){
+        if (loaded) return; loaded = true;
+        var s = document.createElement('script');
+        s.src = 'https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519';
+        s.async = true;
+        document.body.appendChild(s);
+        var r = document.createElement('script');
+        r.src = 'https://www.google.com/recaptcha/api.js';
+        r.async = true; r.defer = true;
+        document.body.appendChild(r);
+        try { fetch('https://assets.mailerlite.com/jsonp/2793314/forms/204036901914544125/takel'); } catch(e){}
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){ if (e.isIntersecting) { load(); io.disconnect(); } });
+        }, { rootMargin: '400px' });
+        io.observe(form);
+      } else {
+        window.addEventListener('load', load);
+      }
+    })();
   </script>
 
   <footer class="site-footer">
