@@ -71,11 +71,10 @@
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document);
     fbq('init', '4271551472912965');
     fbq('track', 'PageView');
-    // Carga diferida: idle, scroll, mousemove o touch — lo primero que ocurra
+    // Carga inmediata y asíncrona: cuenta la visita aunque la persona se vaya rápido
     var _fbLoaded = false;
-    function _loadFb(){ if(_fbLoaded)return; _fbLoaded=true; var s=document.createElement('script'); s.async=true; s.src='https://connect.facebook.net/en_US/fbevents.js'; document.body.appendChild(s); }
-    if('requestIdleCallback' in window){ requestIdleCallback(_loadFb, {timeout:3500}); } else { setTimeout(_loadFb, 2500); }
-    ['scroll','mousemove','touchstart','keydown'].forEach(function(ev){ window.addEventListener(ev, _loadFb, {once:true, passive:true}); });
+    function _loadFb(){ if(_fbLoaded)return; _fbLoaded=true; var s=document.createElement('script'); s.async=true; s.src='https://connect.facebook.net/en_US/fbevents.js'; (document.head||document.documentElement).appendChild(s); }
+    _loadFb();
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=4271551472912965&ev=PageView&noscript=1"/></noscript>
@@ -84,7 +83,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="header-logo" aria-label="HOUP — Inicio">
-        <img src="img/logos/logo_houp_transparente.png" alt="HOUP — Decide ser la mejor versión de ti">
+        <img src="img/logos/logo_houp_transparente.webp" width="900" height="406" alt="HOUP — Decide ser la mejor versión de ti">
       </a>
       <nav class="header-nav" id="header-nav">
         <span class="mobile-menu-header">HOUP · Monterrey</span>
@@ -267,7 +266,7 @@
         var s = document.createElement('script');
         s.src = 'https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519';
         s.async = true;
-        document.body.appendChild(s);
+        (document.head||document.documentElement).appendChild(s);
         var r = document.createElement('script');
         r.src = 'https://www.google.com/recaptcha/api.js';
         r.async = true; r.defer = true;
@@ -317,6 +316,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=v26" defer></script>
+  <script src="js/main.js?v=v27" defer></script>
 </body>
 </html>

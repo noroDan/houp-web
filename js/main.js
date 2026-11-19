@@ -538,6 +538,7 @@
     params = params || {};
     params.page_path = window.location.pathname;
     params.page_title = document.title;
+    if (adRef) params.ad_ref = adRef;
     // GA4
     if (typeof window.gtag === 'function') {
       try { window.gtag('event', eventName, params); } catch(e) {}
@@ -559,6 +560,33 @@
     if (typeof window.lintrk === 'function' && (eventName === 'whatsapp_click' || eventName === 'newsletter_submit')) {
       try { window.lintrk('track', { conversion_id: params.linkedin_conversion_id || null }); } catch(e) {}
     }
+  }
+
+  // --- 0. Origen de la visita: guarda los UTMs y los pasa al mensaje de WhatsApp ---
+  var attrib = {};
+  var adRef = '';
+  try {
+    var qs = new URLSearchParams(window.location.search);
+    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){
+      var v = (qs.get(k) || '').toLowerCase().replace(/[^a-z0-9_\-]/g,'').substring(0,40);
+      if (v) attrib[k] = v;
+    });
+    if (attrib.utm_source) { sessionStorage.setItem('houp_attrib', JSON.stringify(attrib)); }
+    else { attrib = JSON.parse(sessionStorage.getItem('houp_attrib') || '{}'); }
+  } catch(e) { attrib = attrib || {}; }
+  adRef = attrib.utm_content || attrib.utm_campaign || '';
+  if (adRef) {
+    document.querySelectorAll('a[href*="wa.me/"]').forEach(function(a){
+      try {
+        var parts = a.href.split('?');
+        var text = 'Hola HOUP, me interesa conocer más.';
+        var m = (parts[1] || '').match(/(?:^|&)text=([^&]*)/);
+        if (m) text = decodeURIComponent(m[1].replace(/\+/g,' '));
+        if (text.indexOf('(ref: ') === -1) {
+          a.href = parts[0] + '?text=' + encodeURIComponent(text + ' (ref: ' + adRef + ')');
+        }
+      } catch(e) {}
+    });
   }
 
   // --- 1. WhatsApp clicks ---
