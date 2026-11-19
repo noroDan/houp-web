@@ -144,7 +144,7 @@ p { max-width: 68ch; }
 .header-nav a,
 .header-nav button {
   font-family: var(--font-titulo);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.9375rem;
   color: var(--blanco);
   position: relative;
@@ -268,7 +268,7 @@ p { max-width: 68ch; }
   color: var(--gris-claro);
   margin-bottom: 3rem;
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 /* Hero mini para páginas internas */
@@ -327,7 +327,7 @@ p { max-width: 68ch; }
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   color: var(--gris-claro);
   max-width: 44rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.55;
 }
 
@@ -647,7 +647,7 @@ p { max-width: 68ch; }
 /* === Counter animado === */
 .counter {
   font-family: var(--font-titulo);
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(3rem, 7vw, 6rem);
   line-height: 0.9;
   color: var(--cyan);
@@ -826,7 +826,7 @@ p { max-width: 68ch; }
 
 .cifra-num {
   font-family: var(--font-titulo);
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(3rem, 6vw, 5.5rem);
   line-height: 0.9;
   color: var(--cyan);
@@ -1296,7 +1296,7 @@ p { max-width: 68ch; }
 /* ============ 18. QUOTE ============ */
 .quote {
   font-family: var(--font-titulo);
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(1.25rem, 2vw, 1.5rem);
   line-height: 1.4;
   color: var(--negro);
@@ -1589,7 +1589,7 @@ p { max-width: 68ch; }
   display: inline-block;
   margin-left: 0.15em;
   color: var(--cyan);
-  font-weight: 300;
+  font-weight: 400;
   animation: caret-blink 1s infinite;
 }
 
@@ -1604,7 +1604,7 @@ p { max-width: 68ch; }
   max-width: 36rem;
   margin-bottom: 2.75rem;
   line-height: 1.55;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .hero-split-ctas {
@@ -1931,7 +1931,7 @@ p { max-width: 68ch; }
 
 .marquee-item {
   font-family: var(--font-titulo);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.0625rem;
   color: var(--negro);
   white-space: nowrap;
@@ -2079,7 +2079,7 @@ p { max-width: 68ch; }
   align-items: center;
   gap: 0.75rem;
   font-family: var(--font-titulo);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.6875rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
@@ -2407,7 +2407,7 @@ p { max-width: 68ch; }
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1;
   transition: all 400ms var(--ease);
   z-index: 3;
@@ -2587,7 +2587,7 @@ p { max-width: 68ch; }
   color: rgba(255,255,255,0.7);
   display: block;
   margin-top: 0.375rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* ---- HERO MINI: también usa reveal-up ---- */
@@ -3868,7 +3868,7 @@ select:focus-visible,
     opacity: 0;
     font-size: 2rem;
     color: var(--cyan);
-    font-weight: 300;
+    font-weight: 400;
     transition: all 400ms var(--ease);
     display: block !important;
     width: auto !important;

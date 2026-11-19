@@ -59,12 +59,12 @@
   <link rel="dns-prefetch" href="https://wa.me">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&display=swap"></noscript>
 
     <link rel="preload" as="image" href="img/fotos/educacion-cambridge-norte-aula-aplaudiendo.webp" imagesrcset="img/fotos/educacion-cambridge-norte-aula-aplaudiendo-480w.webp 480w, img/fotos/educacion-cambridge-norte-aula-aplaudiendo-800w.webp 800w, img/fotos/educacion-cambridge-norte-aula-aplaudiendo-1200w.webp 1200w, img/fotos/educacion-cambridge-norte-aula-aplaudiendo.webp 1600w" imagesizes="(max-width: 860px) 100vw, 1600px" fetchpriority="high">
-  <link rel="stylesheet" href="css/styles.css?v=v25">
+  <link rel="stylesheet" href="css/styles.css?v=v26">
   
   <script type="application/ld+json">
   {
@@ -132,18 +132,17 @@
       'cookie_flags': 'SameSite=None;Secure'
     });
   </script>
-  <!-- Meta Pixel -->
+  <!-- Meta Pixel (lazy-loaded) -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
+    // Stub inmediato: eventos se encolan hasta que el JS real cargue
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document);
     fbq('init', '4271551472912965');
     fbq('track', 'PageView');
+    // Carga diferida: idle, scroll, mousemove o touch — lo primero que ocurra
+    var _fbLoaded = false;
+    function _loadFb(){ if(_fbLoaded)return; _fbLoaded=true; var s=document.createElement('script'); s.async=true; s.src='https://connect.facebook.net/en_US/fbevents.js'; document.body.appendChild(s); }
+    if('requestIdleCallback' in window){ requestIdleCallback(_loadFb, {timeout:3500}); } else { setTimeout(_loadFb, 2500); }
+    ['scroll','mousemove','touchstart','keydown'].forEach(function(ev){ window.addEventListener(ev, _loadFb, {once:true, passive:true}); });
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=4271551472912965&ev=PageView&noscript=1"/></noscript>
