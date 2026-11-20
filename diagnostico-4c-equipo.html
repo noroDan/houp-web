@@ -169,7 +169,7 @@
       <div class="dx-hero-in">
         <p class="hero-editorial-eyebrow">HOUP Empresas · Diagnóstico de equipo</p>
         <h1 id="eq-h1">¿Su equipo lo ve <em>igual</em> que usted?</h1>
-        <p id="eq-intro">Invite a su equipo a responder las mismas doce afirmaciones. Sus respuestas son anónimas: usted verá el promedio del equipo junto a su resultado cuando haya al menos 4 respuestas.</p>
+        <p id="eq-intro">Invite a su equipo a responder las mismas doce afirmaciones. Sus respuestas son anónimas: usted verá el promedio del equipo junto a su resultado cuando haya al menos 3 respuestas.</p>
         <ul class="dx-facts" id="eq-facts"></ul>
       </div>
     </section>
@@ -183,7 +183,8 @@
 
               <div id="eq-comp" hidden>
                 <span class="dx-eyebrow">Su lectura y la de su equipo</span>
-                <h2 style="margin-top:.6rem" id="eq-comp-h"></h2>
+                <h2 style="margin-top:.6rem;margin-bottom:.5rem" id="eq-comp-h"></h2>
+                <p class="eq-nota" id="eq-part" style="margin:0 0 1.4rem"></p>
                 <div id="eq-cs"></div>
                 <div class="eq-sum"><p id="eq-sum"></p>
                   <a class="btn btn-cyan" target="_blank" rel="noopener" href="https://wa.me/528183621791?text=Hola%20HOUP%20Empresas%2C%20ya%20tengo%20la%20comparaci%C3%B3n%20de%20las%204%20C%27s%20con%20mi%20equipo%20y%20me%20gustar%C3%ADa%20platicar."><span>Revisarla con HOUP</span> <span class="arrow-icon">→</span></a>
@@ -193,7 +194,7 @@
 
               <div id="eq-espera" class="eq-box" hidden>
                 <h3 id="eq-espera-h"></h3>
-                <p style="margin:0">La comparación aparece en esta misma página cuando haya al menos 4 respuestas. También le avisamos por correo.</p>
+                <p style="margin:0">La comparación aparece en esta misma página cuando haya al menos 3 respuestas. También le avisamos por correo.</p>
               </div>
 
               <div class="eq-box">
@@ -380,6 +381,10 @@
         $('eq-h1').innerHTML='Su lectura y la de <em>su equipo</em>.';
         $('eq-intro').textContent='Así ve '+j.organizacion+' las 4 C\'s desde quien dirige y desde el equipo. La comparación se actualiza conforme llegan más respuestas.';
         $('eq-comp-h').textContent=j.n+' respuestas del equipo de '+j.organizacion;
+        var part=$('eq-part');
+        if(j.invitados>0){ var pct=Math.min(100,Math.round(j.n/j.invitados*100));
+          part.innerHTML='<span class="eq-tag'+(pct>=50?'':' dif')+'">'+(pct>=50?'Lectura representativa':'Lectura parcial')+'</span> &nbsp;Participación: '+Math.min(j.n,j.invitados)+' de '+j.invitados+' invitados ('+pct+'%).'+(pct>=50?'':' Conforme respondan más personas, el promedio será más confiable.');
+        } else part.textContent='Respuestas recibidas por la liga compartida. Si invita por correo, aquí verá el porcentaje de participación.';
         var max=-1,km=0,html='';
         j.cs.forEach(function(c,k){
           var yo=j.director[k], eq=j.equipo[k], dif=yo-eq, a=Math.abs(dif);
@@ -394,7 +399,7 @@
           : 'La mayor diferencia está en '+j.cs[km]+': '+(yo>eq?'usted la ve más fuerte que su equipo':'su equipo la ve más fuerte que usted')+'. Es un buen punto para abrir la conversación con ellos.';
         $('eq-comp').hidden=false; $('eq-espera').hidden=true;
       } else {
-        $('eq-espera-h').textContent = j.n ? 'Van '+j.n+' de 4 respuestas necesarias.' : 'Todavía no hay respuestas de su equipo.';
+        $('eq-espera-h').textContent = j.n ? 'Van '+j.n+' de '+j.min+' respuestas necesarias.' : 'Todavía no hay respuestas de su equipo.';
         $('eq-espera').hidden=false; $('eq-comp').hidden=true;
       }
     }

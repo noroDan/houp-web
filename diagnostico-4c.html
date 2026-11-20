@@ -217,7 +217,7 @@
             <div id="dx-send" hidden>
               <span class="dx-eyebrow">Último paso</span>
               <h2 style="margin-top:.6rem">Envíe sus respuestas.</h2>
-              <p style="color:var(--gris-claro);margin:0 0 1.2rem">Se registran de forma anónima: no pedimos su nombre ni su correo. Quien dirige el equipo verá únicamente el promedio, cuando haya al menos 4 respuestas.</p>
+              <p style="color:var(--gris-claro);margin:0 0 1.2rem">Se registran de forma anónima: no pedimos su nombre ni su correo. Quien dirige el equipo verá únicamente el promedio, cuando haya al menos 3 respuestas.</p>
               <p class="dx-err" id="dx-err2" role="alert"></p>
               <button class="btn btn-cyan" id="dx-enviar" type="button"><span>Enviar mis respuestas</span> <span class="arrow-icon">→</span></button><br>
               <button class="dx-ghost" id="dx-back3" type="button">← Revisar respuestas</button>
@@ -226,6 +226,20 @@
               <span class="dx-eyebrow">Listo</span>
               <h2 style="margin-top:.6rem" id="dx-done-h">Su diagnóstico va en camino.</h2>
               <p id="dx-done-p">Lo enviamos a <strong id="dx-mail" style="color:var(--blanco)"></strong>. Si en unos minutos no lo ve, revise su carpeta de correo no deseado.</p>
+              <div id="dx-propio" hidden style="margin:1.5rem 0 0;border:1px solid #2E2E2E;border-radius:14px;padding:1.25rem">
+                <h2 style="font-size:1.15rem;margin:0 0 .5rem">¿Quiere recibir su propio resultado?</h2>
+                <p style="margin:0 0 1rem">Es opcional. Le enviamos por correo cómo ve usted a su equipo en cada una de las 4 C's. Su correo se guarda aparte de sus respuestas, que siguen siendo anónimas para quien dirige el equipo.</p>
+                <form id="dx-propio-form" novalidate>
+                  <div class="dx-row">
+                    <label>Nombre<input type="text" name="nombre" autocomplete="name"></label>
+                    <label>Correo<input type="email" name="correo" autocomplete="email"></label>
+                  </div>
+                  <label class="dx-check"><input type="checkbox" name="contenidos"><span>Quiero recibir contenidos de HOUP sobre equipos y cultura organizacional.</span></label>
+                  <label class="dx-check"><input type="checkbox" name="aviso"><span>Acepto el <a href="/aviso-de-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label>
+                  <p class="dx-err" id="dx-err3" role="alert"></p>
+                  <button class="btn btn-cyan" type="submit"><span>Enviarme mi resultado</span> <span class="arrow-icon">→</span></button>
+                </form>
+              </div>
               <p id="dx-done-eq">En ese mismo correo puede invitar a su equipo a responder de forma anónima y comparar su lectura con la de ellos.</p>
               <p style="margin-top:1.5rem"><a href="empresas.html" class="btn btn-cyan"><span>Conocer HOUP Empresas</span> <span class="arrow-icon">→</span></a></p>
             </div>
@@ -437,12 +451,12 @@
     function yaRespondio(){ try{return localStorage.getItem('houp_dx_eq_'+EQ)==='1'}catch(e){return false} }
     if(EQ){
       $('dx-h1').innerHTML='¿Cómo ve usted a su equipo en las <em>4 C\'s</em>?';
-      $('dx-intro').textContent='Responda doce afirmaciones sobre cómo opera hoy su equipo. Sus respuestas son anónimas: no pedimos su nombre ni su correo, y quien dirige el equipo verá únicamente el promedio cuando haya al menos 4 respuestas.';
+      $('dx-intro').textContent='Responda doce afirmaciones sobre cómo opera hoy su equipo. Sus respuestas son anónimas: no pedimos su nombre ni su correo, y quien dirige el equipo verá únicamente el promedio cuando haya al menos 3 respuestas.';
       $('dx-facts').innerHTML='<li><b>12</b> afirmaciones</li><li><b>3</b> minutos</li><li>Respuestas <b>anónimas</b></li>';
       document.title='Diagnóstico de las 4 C\'s · Su equipo · HOUP Empresas';
       post({tipo:'equipo_info',e:EQ}).then(function(j){
         if(!j.ok){ listoEquipo('Esta liga no está disponible.','Pida a quien le invitó que le comparta la liga de nuevo.'); return }
-        $('dx-intro').textContent='El equipo de '+j.organizacion+' está respondiendo este diagnóstico. Son doce afirmaciones sobre cómo opera hoy su equipo. Sus respuestas son anónimas: no pedimos su nombre ni su correo, y quien dirige el equipo verá únicamente el promedio cuando haya al menos 4 respuestas.';
+        $('dx-intro').textContent='El equipo de '+j.organizacion+' está respondiendo este diagnóstico. Son doce afirmaciones sobre cómo opera hoy su equipo. Sus respuestas son anónimas: no pedimos su nombre ni su correo, y quien dirige el equipo verá únicamente el promedio cuando haya al menos 3 respuestas.';
       }).catch(function(){});
       if(yaRespondio()) listoEquipo('Sus respuestas ya están registradas.','Gracias por tomarse el tiempo. Solo se registra una respuesta por persona.');
       $('dx-back3').onclick=function(){ i=Q.length-1; render(); $('dx-send').hidden=true; $('dx-quiz').hidden=false };
@@ -452,9 +466,23 @@
           if(!j.ok){err.textContent=MSG.envio2;btn.disabled=false;return}
           try{localStorage.setItem('houp_dx_eq_'+EQ,'1')}catch(e){}
           ev('diagnostico_equipo_submit'); listoEquipo('Gracias. Sus respuestas quedaron registradas.','Se guardaron de forma anónima y se sumarán al promedio de su equipo.');
+          $('dx-propio').hidden=false;
         }).catch(function(){err.textContent=MSG.envio2;btn.disabled=false});
       };
     }
+    if(EQ) $('dx-propio-form').addEventListener('submit',function(e){
+      e.preventDefault(); var f=e.target, err=$('dx-err3'), btn=f.querySelector('button[type=submit]');
+      var d={tipo:'equipo_resultado',e:EQ,nombre:f.nombre.value.trim(),correo:f.correo.value.trim(),contenidos:f.contenidos.checked,aviso:f.aviso.checked,respuestas:ans};
+      if(!d.nombre){err.textContent='Escriba su nombre.';return}
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.correo)){err.textContent=MSG.correo;return}
+      if(!d.aviso){err.textContent=MSG.aviso;return}
+      err.textContent=''; btn.disabled=true;
+      post(d).then(function(j){
+        if(!j.ok){err.textContent=MSG[j.error]||MSG.envio;btn.disabled=false;return}
+        ev('diagnostico_equipo_resultado',{contenidos:d.contenidos});
+        $('dx-propio').innerHTML='<p style="margin:0;color:var(--blanco)">Listo. Enviamos su resultado a '+d.correo.replace(/[<>&]/g,'')+'.</p>';
+      }).catch(function(){err.textContent=MSG.envio;btn.disabled=false});
+    });
     render();
   })();
   </script>
