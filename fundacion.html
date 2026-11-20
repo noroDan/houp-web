@@ -624,6 +624,31 @@
         </div>
       </section>
 
+      <!-- DESCARGABLE — Tarjeta clara -->
+      <div class="card-section" id="descarga">
+        <section class="card-light with-glow descarga">
+          <div class="descarga-texto reveal">
+            <p class="tag-seccion">Reporte de impacto</p>
+            <h2>Lo que medimos en <em>un ciclo completo.</em></h2>
+            <p>Ocho páginas con las cifras del programa, cómo las medimos y qué recibe un aliado. Se lo enviamos por correo.</p>
+            <ul class="descarga-puntos"><li>617 estudiantes acompañados en el ciclo 2025-2026.</li><li>Cada cifra con su periodo y su instrumento de medición.</li><li>Qué cubre una aportación y cómo sumarse.</li></ul>
+          </div>
+          <form class="descarga-form reveal reveal-delay-1" data-recurso="reporte" novalidate>
+            <label>Nombre<input type="text" name="nombre" autocomplete="name" required></label>
+            <label>Correo<input type="email" name="correo" autocomplete="email" required></label>
+            <label>Empresa u organización<input type="text" name="organizacion" autocomplete="organization" required></label>
+            <label class="descarga-trampa" aria-hidden="true">Sitio web<input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
+            <label class="descarga-aviso"><input type="checkbox" name="aviso" required><span>Acepto el <a href="/aviso-de-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label>
+            <p class="descarga-estado" role="alert"></p>
+            <button type="submit" class="btn btn-cyan"><span>Enviarme el reporte</span> <span class="arrow-icon">→</span></button>
+          </form>
+          <div class="descarga-listo" hidden>
+            <h3>Va en camino.</h3>
+            <p>Le enviamos el PDF a <strong class="descarga-correo"></strong>. Si en unos minutos no lo ve, revise su carpeta de correo no deseado.</p>
+          </div>
+        </section>
+      </div>
+
       <!-- CTA FINAL — Tarjeta negra -->
       <div class="card-section">
         <section class="card-editorial with-glow cta-final">
@@ -784,5 +809,6 @@
   </footer>
 
   <script src="js/main.js?v=v27" defer></script>
+  <script src="js/descargas.js?v=1" defer></script>
 </body>
 </html>

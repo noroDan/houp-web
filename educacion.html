@@ -475,6 +475,31 @@
         </div>
       </section>
 
+      <!-- DESCARGABLE — Tarjeta clara -->
+      <div class="card-section" id="descarga">
+        <section class="card-light with-glow descarga">
+          <div class="descarga-texto reveal">
+            <p class="tag-seccion">Guía para directivos</p>
+            <h2>Guía de bienestar socioemocional <em>para colegios.</em></h2>
+            <p>Ocho páginas para revisar, ordenar y sostener el trabajo socioemocional de su comunidad. Se la enviamos por correo.</p>
+            <ul class="descarga-puntos"><li>Cinco preguntas para revisar con su equipo dónde está hoy su colegio.</li><li>Los cuatro criterios que comparten los programas que se sostienen.</li><li>Qué puede esperar un colegio en su primer ciclo, con entregables.</li></ul>
+          </div>
+          <form class="descarga-form reveal reveal-delay-1" data-recurso="guia" novalidate>
+            <label>Nombre<input type="text" name="nombre" autocomplete="name" required></label>
+            <label>Correo<input type="email" name="correo" autocomplete="email" required></label>
+            <label>Colegio<input type="text" name="organizacion" autocomplete="organization" required></label>
+            <label class="descarga-trampa" aria-hidden="true">Sitio web<input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
+            <label class="descarga-aviso"><input type="checkbox" name="aviso" required><span>Acepto el <a href="/aviso-de-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label>
+            <p class="descarga-estado" role="alert"></p>
+            <button type="submit" class="btn btn-cyan"><span>Enviarme la guía</span> <span class="arrow-icon">→</span></button>
+          </form>
+          <div class="descarga-listo" hidden>
+            <h3>Va en camino.</h3>
+            <p>Le enviamos el PDF a <strong class="descarga-correo"></strong>. Si en unos minutos no lo ve, revise su carpeta de correo no deseado.</p>
+          </div>
+        </section>
+      </div>
+
       <!-- CTA FINAL — Tarjeta negra -->
       <div class="card-section">
         <section class="card-editorial with-glow cta-final">
@@ -636,5 +661,6 @@
   </footer>
 
   <script src="js/main.js?v=v27" defer></script>
+  <script src="js/descargas.js?v=1" defer></script>
 </body>
 </html>
