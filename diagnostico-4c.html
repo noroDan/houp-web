@@ -134,6 +134,7 @@
   .dx .dx-check input{flex:none;width:1rem;height:1rem;margin:.2rem 0 0;accent-color:var(--cyan)}
   .dx .dx-check span{flex:1;min-width:0}
   .dx a{color:var(--cyan)}
+  .dx a.btn-cyan{color:var(--negro)}
   .dx-err{color:#FF9B8A;font-size:.9rem;min-height:1.2em;margin:0}
   .dx .btn{justify-self:start}
   .dx .btn[disabled]{opacity:.6;cursor:wait}
@@ -177,9 +178,9 @@
     <section class="dx-hero">
       <div class="dx-hero-in">
         <p class="hero-editorial-eyebrow">HOUP Empresas · Diagnóstico</p>
-        <h1>¿En cuál de las <em>4 C's</em> conviene trabajar primero con su equipo?</h1>
-        <p>Las 4 C's son las disciplinas que comparten los equipos de alto desempeño. Responda doce afirmaciones sobre cómo opera hoy su equipo y le enviamos por correo su resultado en Confianza, Claridad, Confrontación y Culminación, con una recomendación de por dónde empezar.</p>
-        <ul class="dx-facts"><li><b>12</b> afirmaciones</li><li><b>3</b> minutos</li><li>Resultado <b>en su correo</b></li></ul>
+        <h1 id="dx-h1">¿En cuál de las <em>4 C's</em> conviene trabajar primero con su equipo?</h1>
+        <p id="dx-intro">Las 4 C's son las disciplinas que comparten los equipos de alto desempeño. Responda doce afirmaciones sobre cómo opera hoy su equipo y le enviamos por correo su resultado en Confianza, Claridad, Confrontación y Culminación, con una recomendación de por dónde empezar.</p>
+        <ul class="dx-facts" id="dx-facts"><li><b>12</b> afirmaciones</li><li><b>3</b> minutos</li><li>Resultado <b>en su correo</b></li></ul>
       </div>
     </section>
 
@@ -213,10 +214,19 @@
               </form>
               <button class="dx-ghost" id="dx-back2" type="button">← Revisar respuestas</button>
             </div>
+            <div id="dx-send" hidden>
+              <span class="dx-eyebrow">Último paso</span>
+              <h2 style="margin-top:.6rem">Envíe sus respuestas.</h2>
+              <p style="color:var(--gris-claro);margin:0 0 1.2rem">Se registran de forma anónima: no pedimos su nombre ni su correo. Quien dirige el equipo verá únicamente el promedio, cuando haya al menos 4 respuestas.</p>
+              <p class="dx-err" id="dx-err2" role="alert"></p>
+              <button class="btn btn-cyan" id="dx-enviar" type="button"><span>Enviar mis respuestas</span> <span class="arrow-icon">→</span></button><br>
+              <button class="dx-ghost" id="dx-back3" type="button">← Revisar respuestas</button>
+            </div>
             <div id="dx-done" class="dx-done" hidden>
               <span class="dx-eyebrow">Listo</span>
-              <h2 style="margin-top:.6rem">Su diagnóstico va en camino.</h2>
-              <p>Lo enviamos a <strong id="dx-mail" style="color:var(--blanco)"></strong>. Si en unos minutos no lo ve, revise su carpeta de correo no deseado.</p>
+              <h2 style="margin-top:.6rem" id="dx-done-h">Su diagnóstico va en camino.</h2>
+              <p id="dx-done-p">Lo enviamos a <strong id="dx-mail" style="color:var(--blanco)"></strong>. Si en unos minutos no lo ve, revise su carpeta de correo no deseado.</p>
+              <p id="dx-done-eq">En ese mismo correo puede invitar a su equipo a responder de forma anónima y comparar su lectura con la de ellos.</p>
               <p style="margin-top:1.5rem"><a href="empresas.html" class="btn btn-cyan"><span>Conocer HOUP Empresas</span> <span class="arrow-icon">→</span></a></p>
             </div>
           </div>
@@ -386,8 +396,10 @@
      ["Culminación","Nos reunimos cada semana para rendir cuentas entre pares sobre lo que cada quien se comprometió a hacer."]
     ];
     var ans=Q.map(function(){return 0}), i=0, started=false;
+    var EQ=(new URLSearchParams(location.search).get('e')||'').toLowerCase();
+    if(!/^[0-9a-f-]{36}$/.test(EQ)) EQ='';
     function $(s){return document.getElementById(s)}
-    function show(id){['dx-quiz','dx-lead','dx-done'].forEach(function(s){$(s).hidden=s!==id}); $('diagnostico').scrollIntoView({block:'start'})}
+    function show(id){['dx-quiz','dx-lead','dx-send','dx-done'].forEach(function(s){$(s).hidden=s!==id}); $('diagnostico').scrollIntoView({block:'start'})}
     function ev(n,p){ if(typeof window.gtag==='function'){try{window.gtag('event',n,p||{})}catch(e){}} }
     function render(){
       $('dx-c').textContent=Q[i][0]; $('dx-nn').textContent=(i+1)+' de '+Q.length;
@@ -398,13 +410,13 @@
         var b=document.createElement('button'); b.className='dx-opt'; b.type='button'; b.setAttribute('aria-pressed',ans[i]===k+1);
         b.innerHTML='<span class="dx-num">'+(k+1)+'</span><span>'+label+'</span>';
         b.onclick=function(){ if(!started){started=true;ev('diagnostico_inicio')} ans[i]=k+1; b.setAttribute('aria-pressed','true');
-          setTimeout(function(){ if(i<Q.length-1){i++;render()} else {ev('diagnostico_preguntas_completas');$('dx-quiz').hidden=true;$('dx-lead').hidden=false} },160) };
+          setTimeout(function(){ if(i<Q.length-1){i++;render()} else {ev(EQ?'diagnostico_equipo_preguntas_completas':'diagnostico_preguntas_completas');$('dx-quiz').hidden=true;$(EQ?'dx-send':'dx-lead').hidden=false} },160) };
         box.appendChild(b);
       });
     }
     $('dx-back').onclick=function(){ if(i){i--;render()} };
     $('dx-back2').onclick=function(){ i=Q.length-1; render(); $('dx-lead').hidden=true; $('dx-quiz').hidden=false };
-    var MSG={datos:'Complete nombre, puesto y empresa.',correo:'Revise su correo.',aviso:'Falta aceptar el aviso de privacidad.',envio:'No pudimos enviar el correo. Intente de nuevo en unos minutos o escríbanos por WhatsApp.'};
+    var MSG={datos:'Complete nombre, puesto y empresa.',correo:'Revise su correo.',aviso:'Falta aceptar el aviso de privacidad.',envio2:'No pudimos registrar sus respuestas. Intente de nuevo en unos minutos.',envio:'No pudimos enviar el correo. Intente de nuevo en unos minutos o escríbanos por WhatsApp.'};
     $('dx-form').addEventListener('submit',function(e){
       e.preventDefault(); var f=e.target, err=$('dx-err'), btn=f.querySelector('button[type=submit]');
       var d={tipo:'diagnostico',nombre:f.nombre.value.trim(),puesto:f.puesto.value.trim(),organizacion:f.organizacion.value.trim(),correo:f.correo.value.trim(),sitio_web:f.sitio_web.value,aviso:f.aviso.checked,respuestas:ans,origen:location.pathname+location.search};
@@ -419,6 +431,30 @@
           if(typeof window.fbq==='function'){try{window.fbq('track','Lead',{content_name:'diagnostico_4c'})}catch(x){}} })
        .catch(function(){err.textContent=MSG.envio;btn.disabled=false});
     });
+    // ----- Modo equipo: respuestas anónimas, sin formulario de datos -----
+    function post(d){return fetch(URL_FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json().then(function(j){j.ok=r.ok&&j.ok;return j})})}
+    function listoEquipo(h,p){ $('dx-done-h').textContent=h; $('dx-done-p').textContent=p; $('dx-done-eq').hidden=true; show('dx-done') }
+    function yaRespondio(){ try{return localStorage.getItem('houp_dx_eq_'+EQ)==='1'}catch(e){return false} }
+    if(EQ){
+      $('dx-h1').innerHTML='¿Cómo ve usted a su equipo en las <em>4 C\'s</em>?';
+      $('dx-intro').textContent='Responda doce afirmaciones sobre cómo opera hoy su equipo. Sus respuestas son anónimas: no pedimos su nombre ni su correo, y quien dirige el equipo verá únicamente el promedio cuando haya al menos 4 respuestas.';
+      $('dx-facts').innerHTML='<li><b>12</b> afirmaciones</li><li><b>3</b> minutos</li><li>Respuestas <b>anónimas</b></li>';
+      document.title='Diagnóstico de las 4 C\'s · Su equipo · HOUP Empresas';
+      post({tipo:'equipo_info',e:EQ}).then(function(j){
+        if(!j.ok){ listoEquipo('Esta liga no está disponible.','Pida a quien le invitó que le comparta la liga de nuevo.'); return }
+        $('dx-intro').textContent='El equipo de '+j.organizacion+' está respondiendo este diagnóstico. Son doce afirmaciones sobre cómo opera hoy su equipo. Sus respuestas son anónimas: no pedimos su nombre ni su correo, y quien dirige el equipo verá únicamente el promedio cuando haya al menos 4 respuestas.';
+      }).catch(function(){});
+      if(yaRespondio()) listoEquipo('Sus respuestas ya están registradas.','Gracias por tomarse el tiempo. Solo se registra una respuesta por persona.');
+      $('dx-back3').onclick=function(){ i=Q.length-1; render(); $('dx-send').hidden=true; $('dx-quiz').hidden=false };
+      $('dx-enviar').onclick=function(){
+        var btn=this, err=$('dx-err2'); err.textContent=''; btn.disabled=true;
+        post({tipo:'equipo',e:EQ,respuestas:ans}).then(function(j){
+          if(!j.ok){err.textContent=MSG.envio2;btn.disabled=false;return}
+          try{localStorage.setItem('houp_dx_eq_'+EQ,'1')}catch(e){}
+          ev('diagnostico_equipo_submit'); listoEquipo('Gracias. Sus respuestas quedaron registradas.','Se guardaron de forma anónima y se sumarán al promedio de su equipo.');
+        }).catch(function(){err.textContent=MSG.envio2;btn.disabled=false});
+      };
+    }
     render();
   })();
   </script>
