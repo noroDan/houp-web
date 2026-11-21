@@ -110,6 +110,17 @@
   .dx-hero p{color:var(--gris-claro);max-width:40rem;font-size:1.1rem}
   .dx-facts{display:flex;flex-wrap:wrap;gap:.6rem 1.75rem;list-style:none;padding:0;margin:1.5rem 0 0;color:var(--gris-claro)}
   .dx-facts b{color:var(--blanco);font-family:var(--font-titulo);font-weight:600}
+  /* Celular: la primera afirmación debe verse sin desplazarse. */
+  @media(max-width:700px){
+    .dx-hero{padding:5.5rem 1.25rem 2.6rem}
+    .dx-hero .hero-editorial-eyebrow{font-size:.68rem;letter-spacing:.18em;margin:0}
+    .dx-hero h1{font-size:1.5rem;line-height:1.15;margin:.5rem 0 .55rem}
+    .dx-hero #dx-intro{display:none}
+    .dx-facts{margin:0;font-size:.85rem;gap:.2rem .9rem}
+    .dx-hero + .lienzo-principal{padding-top:0}
+    .dx-hero + .lienzo-principal .card-section{padding-top:.5rem}
+    .dx h2{font-size:1.2rem}
+  }
   .dx{max-width:44rem;margin:0 auto;text-align:left}
   .dx-eyebrow{font-family:var(--font-titulo);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-weight:600}
   .dx-meta{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
@@ -189,7 +200,7 @@
       <div class="dx-hero-in">
         <p class="hero-editorial-eyebrow">HOUP Empresas · Diagnóstico</p>
         <h1 id="dx-h1">¿En cuál de las <em>4 C's</em> conviene trabajar primero con su equipo?</h1>
-        <p id="dx-intro">Las 4 C's son las disciplinas que comparten los equipos de alto desempeño. Responda doce afirmaciones sobre cómo opera hoy su equipo y le enviamos por correo su resultado en Confianza, Claridad, Confrontación y Culminación, con una recomendación de por dónde empezar.</p>
+        <p id="dx-intro">Responda doce afirmaciones sobre cómo opera hoy su equipo y reciba por correo su resultado en Confianza, Claridad, Confrontación y Culminación, con una recomendación de por dónde empezar.</p>
         <ul class="dx-facts" id="dx-facts"><li><b>12</b> afirmaciones</li><li><b>3</b> minutos</li><li>Resultado <b>en su correo</b></li></ul>
       </div>
     </section>
