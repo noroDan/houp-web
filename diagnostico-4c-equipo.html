@@ -396,11 +396,12 @@
       if(j.equipo&&j.director){
         $('eq-h1').innerHTML='Su lectura y la de <em>su equipo</em>.';
         $('eq-intro').textContent='Así ve '+j.organizacion+' las 4 C\'s desde quien dirige y desde el equipo. La comparación se actualiza conforme llegan más respuestas.';
-        $('eq-comp-h').textContent=j.n+' respuestas del equipo de '+j.organizacion;
+        var us=j.usadas||j.n; $('eq-comp-h').textContent=us+' respuestas del equipo de '+j.organizacion;
         var part=$('eq-part');
         if(j.invitados>0){ var pct=Math.min(100,Math.round(j.n/j.invitados*100));
           part.innerHTML='<span class="eq-tag'+(pct>=50?'':' dif')+'">'+(pct>=50?'Lectura representativa':'Lectura parcial')+'</span> &nbsp;Participación: '+Math.min(j.n,j.invitados)+' de '+j.invitados+' invitados ('+pct+'%).'+(pct>=50?'':' Conforme respondan más personas, el promedio será más confiable.');
         } else part.textContent='Respuestas recibidas por la liga que compartió.';
+        if(j.n>us){ var ex=document.createElement('span'); ex.textContent=' Hay '+(j.n-us)+' respuesta más en espera: se suma al promedio cuando llegue otra, para proteger el anonimato.'; part.append(ex) }
         var max=-1,km=0,html='';
         j.cs.forEach(function(c,k){
           var yo=j.director[k], eq=j.equipo[k], dif=yo-eq, a=Math.abs(dif);
