@@ -140,6 +140,16 @@
   .dx .btn[disabled]{opacity:.6;cursor:wait}
   .dx-trampa{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
   .dx-done p{color:var(--gris-claro)}
+  #diagnostico{scroll-margin-top:6rem}
+  .dx-ok{width:3.25rem;height:3.25rem;border-radius:50%;background:var(--cyan);display:grid;place-items:center;margin:0 0 1.1rem}
+  .dx-ok svg{width:1.6rem;height:1.6rem;stroke:var(--negro);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .dx-aviso{border-left:3px solid var(--cyan);background:rgba(2,193,244,.1);border-radius:0 12px 12px 0;padding:.9rem 1.1rem;margin:1.2rem 0 0}
+  .dx-aviso p{margin:0;color:var(--blanco)}
+  .dx-paso{border:1px solid #2E2E2E;border-radius:14px;padding:1.25rem;margin:1.5rem 0 0}
+  .dx-paso h3{font-family:var(--font-titulo);font-weight:600;font-size:1.15rem;margin:.5rem 0 .5rem;color:var(--blanco)}
+  .dx-paso p{margin:0 0 1rem}
+  .dx-btns{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
+  .dx .dx-out{display:inline-flex;align-items:center;background:none;border:1px solid var(--cyan);color:var(--cyan);border-radius:999px;font:inherit;font-family:var(--font-titulo);font-weight:600;font-size:.95rem;padding:.8rem 1.3rem;cursor:pointer;text-decoration:none}
   @media(max-width:560px){.dx-row{grid-template-columns:1fr}}
   </style>
 </head>
@@ -223,9 +233,11 @@
               <button class="dx-ghost" id="dx-back3" type="button">← Revisar respuestas</button>
             </div>
             <div id="dx-done" class="dx-done" hidden>
-              <span class="dx-eyebrow">Listo</span>
+              <div class="dx-ok" id="dx-ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+              <span class="dx-eyebrow" id="dx-done-e">Enviado</span>
               <h2 style="margin-top:.6rem" id="dx-done-h">Su diagnóstico va en camino.</h2>
-              <p id="dx-done-p">Lo enviamos a <strong id="dx-mail" style="color:var(--blanco)"></strong>. Si en unos minutos no lo ve, revise su carpeta de correo no deseado.</p>
+              <p id="dx-done-p">Lo enviamos a <strong id="dx-mail" style="color:var(--blanco)"></strong>. Llega en un par de minutos.</p>
+              <div class="dx-aviso" id="dx-spam"><p><strong>¿No lo ve en su bandeja de entrada?</strong> Revise su carpeta de correo no deseado o spam. Los filtros de correo de las empresas a veces lo envían ahí; márquelo como "No es spam" para recibir también los siguientes avisos.</p></div>
               <div id="dx-propio" hidden style="margin:1.5rem 0 0;border:1px solid #2E2E2E;border-radius:14px;padding:1.25rem">
                 <h2 style="font-size:1.15rem;margin:0 0 .5rem">¿Quiere recibir su propio resultado?</h2>
                 <p style="margin:0 0 1rem">Es opcional. Le enviamos por correo cómo ve usted a su equipo en cada una de las 4 C's. Su correo se guarda aparte de sus respuestas, que siguen siendo anónimas para quien dirige el equipo.</p>
@@ -240,8 +252,18 @@
                   <button class="btn btn-cyan" type="submit"><span>Enviarme mi resultado</span> <span class="arrow-icon">→</span></button>
                 </form>
               </div>
-              <p id="dx-done-eq">En ese mismo correo puede invitar a su equipo a responder de forma anónima y comparar su lectura con la de ellos.</p>
-              <p style="margin-top:1.5rem"><a href="empresas.html" class="btn btn-cyan"><span>Conocer HOUP Empresas</span> <span class="arrow-icon">→</span></a></p>
+              <div class="dx-paso" id="dx-done-eq" hidden>
+                <span class="dx-eyebrow">Siguiente paso</span>
+                <h3>¿Su equipo lo ve igual?</h3>
+                <p>Su resultado refleja su percepción como líder. Invite a su equipo a responder las mismas doce afirmaciones: es anónimo, y usted verá el promedio del equipo junto a su resultado cuando haya al menos 3 respuestas.</p>
+                <div class="dx-btns">
+                  <a class="btn btn-cyan" data-inv="correo" href="#"><span>Invitar por correo</span> <span class="arrow-icon">→</span></a>
+                  <a class="dx-out" data-inv="whatsapp" href="#" target="_blank" rel="noopener">Invitar por WhatsApp</a>
+                  <button class="dx-out" data-inv="copiar" type="button">Copiar liga</button>
+                </div>
+                <p style="margin:1rem 0 0;font-size:.9rem">"Invitar por correo" abre un mensaje ya redactado en su correo; solo agregue a su equipo y envíe. Estas mismas opciones van en el correo que le acabamos de mandar.</p>
+              </div>
+              <p style="margin-top:1.5rem"><a href="empresas.html">Conocer HOUP Empresas →</a></p>
             </div>
           </div>
         </section>
@@ -439,15 +461,18 @@
       if(!d.aviso){err.textContent=MSG.aviso;return}
       err.textContent=''; btn.disabled=true;
       fetch(URL_FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
-       .then(function(r){return r.json().then(function(j){return {ok:r.ok&&j.ok,error:j.error}})})
+       .then(function(r){return r.json().then(function(j){return {ok:r.ok&&j.ok,error:j.error,invitar:j.invitar}})})
        .then(function(r){ if(!r.ok){err.textContent=MSG[r.error]||MSG.envio;btn.disabled=false;return}
-          $('dx-mail').textContent=d.correo; show('dx-done'); ev('diagnostico_submit',{rama:'empresas'});
+          $('dx-mail').textContent=d.correo; if(r.invitar){ligas(r.invitar);$('dx-done-eq').hidden=false} show('dx-done'); ev('diagnostico_submit',{rama:'empresas'});
           if(typeof window.fbq==='function'){try{window.fbq('track','Lead',{content_name:'diagnostico_4c'})}catch(x){}} })
        .catch(function(){err.textContent=MSG.envio;btn.disabled=false});
     });
     // ----- Modo equipo: respuestas anónimas, sin formulario de datos -----
     function post(d){return fetch(URL_FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json().then(function(j){j.ok=r.ok&&j.ok;return j})})}
-    function listoEquipo(h,p){ $('dx-done-h').textContent=h; $('dx-done-p').textContent=p; $('dx-done-eq').hidden=true; show('dx-done') }
+    function ligas(v){ document.querySelectorAll('[data-inv]').forEach(function(el){ var k=el.getAttribute('data-inv');
+      if(k==='copiar'){ el.onclick=function(){ try{navigator.clipboard.writeText(v.enlace).then(function(){el.textContent='Liga copiada'},function(){el.textContent=v.enlace})}catch(e){el.textContent=v.enlace} } }
+      else if(/^(mailto:|https:\/\/wa\.me\/)/.test(v[k]||'')) el.href=v[k]; }) }
+    function listoEquipo(h,p,ok){ $('dx-done-h').textContent=h; $('dx-done-p').textContent=p; $('dx-done-eq').hidden=true; $('dx-spam').hidden=true; $('dx-ok').hidden=!ok; $('dx-done-e').textContent=ok?'Enviado':'Aviso'; show('dx-done') }
     function yaRespondio(){ try{return localStorage.getItem('houp_dx_eq_'+EQ)==='1'}catch(e){return false} }
     if(EQ){
       $('dx-h1').innerHTML='¿Cómo ve usted a su equipo en las <em>4 C\'s</em>?';
@@ -458,14 +483,14 @@
         if(!j.ok){ listoEquipo('Esta liga no está disponible.','Pida a quien le invitó que le comparta la liga de nuevo.'); return }
         $('dx-intro').textContent='El equipo de '+j.organizacion+' está respondiendo este diagnóstico. Son doce afirmaciones sobre cómo opera hoy su equipo. Sus respuestas son anónimas: no pedimos su nombre ni su correo, y quien dirige el equipo verá únicamente el promedio cuando haya al menos 3 respuestas.';
       }).catch(function(){});
-      if(yaRespondio()) listoEquipo('Sus respuestas ya están registradas.','Gracias por tomarse el tiempo. Solo se registra una respuesta por persona.');
+      if(yaRespondio()) listoEquipo('Sus respuestas ya están registradas.','Gracias por tomarse el tiempo. Solo se registra una respuesta por persona.',true);
       $('dx-back3').onclick=function(){ i=Q.length-1; render(); $('dx-send').hidden=true; $('dx-quiz').hidden=false };
       $('dx-enviar').onclick=function(){
         var btn=this, err=$('dx-err2'); err.textContent=''; btn.disabled=true;
         post({tipo:'equipo',e:EQ,respuestas:ans}).then(function(j){
           if(!j.ok){err.textContent=MSG.envio2;btn.disabled=false;return}
           try{localStorage.setItem('houp_dx_eq_'+EQ,'1')}catch(e){}
-          ev('diagnostico_equipo_submit'); listoEquipo('Gracias. Sus respuestas quedaron registradas.','Se guardaron de forma anónima y se sumarán al promedio de su equipo.');
+          ev('diagnostico_equipo_submit'); listoEquipo('Gracias. Sus respuestas quedaron registradas.','Se guardaron de forma anónima y se sumarán al promedio de su equipo.',true);
           $('dx-propio').hidden=false;
         }).catch(function(){err.textContent=MSG.envio2;btn.disabled=false});
       };
@@ -480,7 +505,7 @@
       post(d).then(function(j){
         if(!j.ok){err.textContent=MSG[j.error]||MSG.envio;btn.disabled=false;return}
         ev('diagnostico_equipo_resultado',{contenidos:d.contenidos});
-        $('dx-propio').innerHTML='<p style="margin:0;color:var(--blanco)">Listo. Enviamos su resultado a '+d.correo.replace(/[<>&]/g,'')+'.</p>';
+        $('dx-propio').innerHTML='<p style="margin:0;color:var(--blanco)">Listo. Enviamos su resultado a '+d.correo.replace(/[<>&]/g,'')+'. Si no lo ve en unos minutos, revise su carpeta de correo no deseado.</p>';
       }).catch(function(){err.textContent=MSG.envio;btn.disabled=false});
     });
     render();
