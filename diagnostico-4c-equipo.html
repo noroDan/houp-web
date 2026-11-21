@@ -216,16 +216,6 @@
                 </div>
                 <p style="margin:1rem 0 .4rem">La liga es la misma para todo el equipo, por eso las respuestas no se pueden asociar a una persona:</p>
                 <div class="eq-link"><code id="eq-enlace"></code></div>
-                <details style="margin-top:1.1rem"><summary style="cursor:pointer;color:var(--gris-claro)">Prefiero que HOUP envíe la invitación</summary>
-                  <p style="margin:.8rem 0">Escriba los correos de su equipo, uno por línea o separados por comas. HOUP les envía la invitación a su nombre y no conserva esas direcciones. Así también verá el porcentaje de participación.</p>
-                  <form id="eq-form" novalidate>
-                  <label>Correos del equipo<textarea name="correos" placeholder="nombre@empresa.com" autocomplete="off"></textarea></label>
-                  <label class="dx-check"><input type="checkbox" name="confirmo"><span>Confirmo que estas personas forman parte de mi equipo y que puedo compartir su correo de trabajo para esta invitación.</span></label>
-                  <p class="dx-err" id="eq-err" role="alert"></p>
-                  <button class="btn btn-cyan" type="submit"><span>Enviar invitaciones</span> <span class="arrow-icon">→</span></button>
-                  <p class="eq-ok" id="eq-ok" role="status"></p>
-                </form>
-                </details>
               </div>
 
               <p class="eq-nota">Guarde esta página: es su acceso a la comparación. La liga llegó en el correo con su diagnóstico.</p>
@@ -423,19 +413,6 @@
     function carga(){ return post({tipo:'panel',d:D}).then(function(j){ if(!j.ok) throw 0; pinta(j); return j }) }
     if(!/^[0-9a-f-]{36}$/.test(D)){ $('eq-carga').textContent='Esta liga no está disponible. Ábrala desde el correo con su diagnóstico.'; return }
     carga().catch(function(){ $('eq-carga').textContent='Esta liga no está disponible. Ábrala desde el correo con su diagnóstico.' });
-    var MSG={confirmo:'Falta confirmar que puede compartir estos correos.',correos:'Escriba al menos un correo válido.',muchos:'Envíe hasta 15 correos a la vez.',limite:'Llegó al máximo de invitaciones por correo. Comparta la liga con el resto del equipo.',envio:'No pudimos enviar las invitaciones. Intente de nuevo en unos minutos.'};
-    $('eq-form').addEventListener('submit',function(e){
-      e.preventDefault(); var f=e.target, err=$('eq-err'), ok=$('eq-ok'), btn=f.querySelector('button[type=submit]');
-      var lista=f.correos.value.split(/[\s,;]+/).filter(Boolean); ok.textContent='';
-      if(!lista.length){err.textContent=MSG.correos;return}
-      if(!f.confirmo.checked){err.textContent=MSG.confirmo;return}
-      err.textContent=''; btn.disabled=true;
-      post({tipo:'invitar',d:D,correos:lista,confirmo:true}).then(function(j){
-        btn.disabled=false;
-        if(!j.ok){err.textContent=MSG[j.error]||MSG.envio;return}
-        ok.textContent=j.enviados===1?'Enviamos 1 invitación.':'Enviamos '+j.enviados+' invitaciones.'; f.correos.value=''; carga().catch(function(){});
-      }).catch(function(){btn.disabled=false;err.textContent=MSG.envio});
-    });
   })();
   </script>
 </body>
