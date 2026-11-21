@@ -33,6 +33,12 @@
     if(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(e)){
       url='https://wa.me/?text='+encodeURIComponent('Equipo: respondí un diagnóstico breve de HOUP sobre cómo trabajamos y quiero conocer cómo lo ven ustedes. Son 12 afirmaciones, toma 3 minutos y es anónimo. https://houp.mx/diagnostico-4c.html?e='+e);
       document.getElementById('t').textContent='Elija el grupo o las personas de su equipo y envíe el mensaje.';
+      if(q.get('v')==='correo'){
+        url='mailto:?subject='+encodeURIComponent("Diagnóstico de las 4 C's de nuestro equipo (3 minutos, anónimo)")+'&body='+encodeURIComponent('Hola, equipo:\n\nRespondí un diagnóstico breve de HOUP sobre cómo trabajamos como equipo y quiero conocer cómo lo ven ustedes.\n\nSon 12 afirmaciones y toma 3 minutos. Es anónimo: no pide nombre ni correo para responder, y yo solo veré el promedio del equipo cuando haya al menos 3 respuestas.\n\nResponder: https://houp.mx/diagnostico-4c.html?e='+e+'\n\nGracias.');
+        document.title='Abriendo su correo · HOUP'; document.querySelector('h1').textContent='Abriendo su correo…';
+        document.getElementById('t').textContent='Se abre un mensaje ya redactado. Agregue a su equipo y envíelo.';
+        document.getElementById('b').textContent='Abrir mi correo →'; document.getElementById('b').href=url; location.href=url; return;
+      }
     } else if(M[m]) url+='?text='+encodeURIComponent(M[m]);
     document.getElementById('b').href=url;
     location.replace(url);
